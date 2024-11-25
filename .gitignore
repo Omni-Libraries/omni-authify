@@ -7,6 +7,9 @@ __pycache__/
 *.so
 
 .idea
+venv-authify
+.test_pypirc
+.pypirc
 
 # Distribution / packaging
 .Python
