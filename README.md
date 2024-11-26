@@ -1,60 +1,62 @@
-# omni-authify
-A Python package that supports OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI.
+# Omni-Authify
 
+**Omni-Authify** is a Python package that makes it easy to support OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI.
 
-omni-authify/
-├── omni_authify/          # Main package directory
-│   ├── __init__.py        # Package initializer
-│   ├── core/              # Core functionality (common code shared across frameworks)
-│   │   ├── __init__.py
-│   │   ├── oauth.py       # Base OAuth2 implementation
-│   │   ├── utils.py       # Utility functions (e.g., token parsing, URL generation)
-│   │   ├── exceptions.py  # Custom exceptions for the library
-│   ├── frameworks/        # Framework-specific integrations
-│   │   ├── __init__.py
-│   │   ├── django.py      # Django-specific logic
-│   │   ├── drf.py         # Django REST Framework-specific logic
-│   │   ├── flask.py       # Flask-specific logic
-│   │   ├── fastapi.py     # FastAPI-specific logic
-│   ├── providers/         # OAuth2 providers (Google, Facebook, etc.)
-│   │   ├── __init__.py
-│   │   ├── base.py        # Base class for all providers
-│   │   ├── google.py      # Google provider implementation
-│   │   ├── facebook.py    # Facebook provider implementation
-│   │   ├── github.py      # GitHub provider implementation
-│   │   ├── linkedin.py    # LinkedIn provider implementation
-│   │   ├── twitter.py     # Twitter provider implementation
-│   │   ├── telegram.py    # Telegram provider implementation
-│   ├── settings.py        # Default configuration/settings for the library
-│   ├── version.py         # Versioning info
-├── tests/                 # Unit and integration tests
-│   ├── __init__.py
-│   ├── test_core.py       # Tests for core functionality
-│   ├── test_frameworks/   # Tests for framework-specific integrations
-│   │   ├── test_django.py
-│   │   ├── test_flask.py
-│   │   ├── test_fastapi.py
-│   ├── test_providers/    # Tests for OAuth2 providers
-│       ├── test_google.py
-│       ├── test_facebook.py
-│       ├── test_github.py
-│       ├── test_twitter.py
-├── docs/                  # Documentation for the library
-│   ├── index.md           # Main README for documentation
-│   ├── installation.md    # Installation guide
-│   ├── usage/             # Usage guides for different frameworks
-│   │   ├── django.md
-│   │   ├── flask.md
-│   │   ├── fastapi.md
-│   ├── providers.md       # List of supported providers and usage examples
-├── examples/              # Example projects demonstrating usage
-│   ├── django_example/    # Django integration example
-│   ├── flask_example/     # Flask integration example
-│   ├── fastapi_example/   # FastAPI integration example
-├── LICENSE -               # License file
-├── README.md  -            # Main README for the project
-├── setup.py               # Script for packaging and installation
-├── requirements.txt       # Python dependencies
-├── MANIFEST.in            # Additional files to include in the package
-├── pyproject.toml         # Modern Python packaging configuration
-└── .gitignore     -        # Files to ignore in Git
+## 📚 Table of Contents
+- [Introduction](#omni-authify)
+- [Contributing](#contributing)
+- [Development Setup](#development-setup)
+- [Documentation](#documentation)
+  - [Setup Guides](#setup-guides)
+  - [Provider Documentation](#provider-documentation)
+  - [Supported Frameworks](#supported-frameworks)
+  - [Installation Instructions](#installation-instructions)
+- [Contributors](#contributors)
+- [License](#license)
+
+---
+
+## 📄 Documentation
+
+Omni-Authify has a detailed set of documentation files to guide you through setup, integration, and usage.
+
+### 📖 Setup Guides
+- [Facebook Setup Guide](docs/setup_guide/facebook.md)
+- [Google Setup Guide](docs/setup_guide/google.md)
+- [Twitter Setup Guide](docs/setup_guide/twitter.md)
+- [LinkedIn Setup Guide](docs/setup_guide/linkedin.md)
+- [GitHub Setup Guide](docs/setup_guide/github.md)
+- [Telegram Setup Guide](docs/setup_guide/telegram.md)
+
+### 📊 Provider Documentation
+- [Providers Overview](docs/providers.md)
+
+### 🛠️ Supported Frameworks
+- [Django Setup Guide](docs/usage/django.md)
+- [Django-DRF Setup Guide](docs/usage/django-drf.md)
+- [FastAPI Setup Guide](docs/usage/fastapi.md)
+- [Flask Setup Guide](docs/usage/flask.md)
+
+### 🚀 Installation Instructions
+- [Installation Guide](docs/installation.md)
+
+---
+
+## 👥 Contributors
+
+We believe in the power of collaboration. Below are some of our amazing contributors:
+
+| Avatar | Name | LinkedIn |
+|--------|------|----------|
+| ![Mukhsin Mukhtorov](https://gravatar.com/muxtorov) | [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) |
+
+If you’d like to join this list, please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for more information.
+
+---
+
+**Omni-Authify** makes adding OAuth2 authentication to your project effortless. Whether you are building with Django, DRF, FastAPI, or Flask, Omni-Authify provides you with a unified and easy approach to handle social logins. We are excited to see what you build with Omni-Authify! 🚀
+
