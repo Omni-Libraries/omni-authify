@@ -17,6 +17,7 @@
     </a>
 </p>
 
+
 ---
 
 **Omni-Authify** is a Python package that makes it easy to support OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI.
@@ -65,9 +66,9 @@ Omni-Authify has a detailed set of documentation files to guide you through setu
 
 We believe in the power of collaboration. Below are some of our amazing contributors:
 
-| Avatar | Name | LinkedIn |
-|--------|------|----------|
-| ![Mukhsin Mukhtorov](https://gravatar.com/muxtorov) | [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) |
+| Name                                                | LinkedIn                                                             |
+|-----------------------------------------------------|----------------------------------------------------------------------| 
+| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) |
 
 If you’d like to join this list, please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
