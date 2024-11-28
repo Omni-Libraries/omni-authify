@@ -1,0 +1,17 @@
+import requests
+
+from .facebook import Facebook
+
+
+class Instagram(Facebook):
+    PROFILE_URL: str = "https://graph.instagram.com/me"
+
+    def get_user_profile(self, access_token: str) -> dict:
+        payload = {
+            "access_token": access_token,
+            "fields": "id,username",
+        }
+        response = requests.get(self.PROFILE_URL, params=payload)
+        response.raise_for_status()
+        return response.json()
+
