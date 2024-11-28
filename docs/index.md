@@ -1,4 +1,4 @@
-# Simplify OAuth2 Authentication
+###### <h1 align="center">Simplify OAuth2 Authentication</h1>
 
 ---
 <p align="center">
@@ -24,7 +24,7 @@ Omni-Authify is a Python library that makes OAuth2 authentication a breeze acros
 
 - [Installation](installation.md)
 - [Supported Providers and Frameworks](providers.md)
-- [License](../LICENSE)
+- [License](./LICENSE)
 
 ---
 
