@@ -1,4 +1,4 @@
-# Django Integration for Facebook Authentication
+# Django Integration for Facebook Login
 
 Easily integrate Facebook OAuth2 authentication into your Django project using Omni-Authify. This guide covers configuration, view creation, URL setup, and handling user authentication, providing a seamless experience for developers.
 

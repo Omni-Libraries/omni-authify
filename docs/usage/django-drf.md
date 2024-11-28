@@ -1,4 +1,4 @@
-# Django REST Framework (DRF) Integration for Facebook Authentication
+# Django REST Framework (DRF) Integration for Facebook Login
 
 Easily integrate Facebook OAuth2 authentication into your Django REST Framework project using Omni-Authify. This guide will walk you through configuration, setting up API views, updating URLs, and best practices.
 
