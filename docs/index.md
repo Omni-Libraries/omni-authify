@@ -1,3 +1,4 @@
+###### <h1 align="center">Simplify OAuth2 Authentication</h1>
 
 ---
 <p align="center">
@@ -8,8 +9,6 @@
 </p>
 
 ---
-
-###### <h1 align="center">Omni-Authify: Simplify OAuth2 Authentication</h1>
 
 
 Omni-Authify is a Python library that makes OAuth2 authentication a breeze across multiple frameworks and providers. Its main goal is to give you a unified and easy-to-use interface for adding social logins to your applications.
