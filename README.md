@@ -41,12 +41,12 @@
 Omni-Authify has a detailed set of documentation files to guide you through setup, integration, and usage.
 
 ### 📖 Setup Guides
-- [Facebook Setup Guide](docs/setup_guide/facebook.md)
-- [Google Setup Guide](docs/setup_guide/google.md)
-- [Twitter Setup Guide](docs/setup_guide/twitter.md)
-- [LinkedIn Setup Guide](docs/setup_guide/linkedin.md)
-- [GitHub Setup Guide](docs/setup_guide/github.md)
-- [Telegram Setup Guide](docs/setup_guide/telegram.md)
+- [Facebook Setup Guide](docs/SetupGuide/facebook.md)
+- [Google Setup Guide](docs/SetupGuide/google.md)
+- [Twitter Setup Guide](docs/SetupGuide/twitter.md)
+- [LinkedIn Setup Guide](docs/SetupGuide/linkedin.md)
+- [GitHub Setup Guide](docs/SetupGuide/github.md)
+- [Telegram Setup Guide](docs/SetupGuide/telegram.md)
 
 ### 📊 Provider Documentation
 - [Providers Overview](docs/providers.md)
