@@ -1,4 +1,4 @@
-###### <h1 align="center">Simplify OAuth2 Authentication</h1>
+# Simplify OAuth2 Authentication
 
 ---
 <p align="center">
