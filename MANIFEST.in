@@ -1,0 +1,22 @@
+# Include essential project files
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include MANIFEST.in
+include requirements.txt
+include setup.py
+include pyproject.toml
+
+# Include the core package files
+recursive-include omni_authify *.py
+
+# Include documentation files
+recursive-include docs *.md
+
+# Exclude unnecessary compiled files and cache directories
+global-exclude __pycache__
+global-exclude *.pyc
+global-exclude *.pyo
+
+# Exclude scripts directory
+prune scripts
