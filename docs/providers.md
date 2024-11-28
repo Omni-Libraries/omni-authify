@@ -8,12 +8,12 @@ Omni-Authify currently supports the following OAuth2 providers:
 
 | 🔒 Auth Type | 🌐 Provider         | 📖 Documentation                     |
 |--------------|--------------------|--------------------------------------|
-| OAuth 2.0    | Google             | [Setup Guide](setup_guide/google.md) |
-| OAuth 2.0    | Facebook/Instagram | [Setup Guide](setup_guide/facebook.md) |
-| OAuth 2.0    | Twitter/X          | [Setup Guide](setup_guide/twitter.md)  |
-| OAuth 2.0    | LinkedIn           | [Setup Guide](setup_guide/linkedin.md) |
-| OAuth 2.0    | GitHub             | [Setup Guide](setup_guide/github.md)   |
-| Bot Token    | Telegram           | [Setup Guide](setup_guide/telegram.md) |
+| OAuth 2.0    | Google             | [Setup Guide](Setup Guide/google.md) |
+| OAuth 2.0    | Facebook/Instagram | [Setup Guide](Setup Guide/facebook.md) |
+| OAuth 2.0    | Twitter/X          | [Setup Guide](Setup Guide/twitter.md)  |
+| OAuth 2.0    | LinkedIn           | [Setup Guide](Setup Guide/linkedin.md) |
+| OAuth 2.0    | GitHub             | [Setup Guide](Setup Guide/github.md)   |
+| Bot Token    | Telegram           | [Setup Guide](Setup Guide/telegram.md) |
 
 ---
 
@@ -25,8 +25,8 @@ Omni-Authify integrates with several popular frameworks to facilitate OAuth2 aut
 |----------------------|--------------|-----------------------------------------|
 | Version: 3+          | Django       | [Setup Guide](usage/django.md)          |
 | Version: 3.3+        | Django-DRF   | [Setup Guide](usage/django-drf.md)      |
-| Version: ...         | FastAPI      | [Setup Guide](setup_guide/facebook.md)  |
-| Flask: ...           | Flask        | [Setup Guide](setup_guide/twitter.md)   |
+| Version: ...         | FastAPI      | [Setup Guide](Setup Guide/facebook.md)  |
+| Flask: ...           | Flask        | [Setup Guide](Setup Guide/twitter.md)   |
 
 ---
 
