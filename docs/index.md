@@ -24,7 +24,7 @@ Omni-Authify is a Python library that makes OAuth2 authentication a breeze acros
 
 - [Installation](installation.md)
 - [Supported Providers and Frameworks](providers.md)
-- [License](./LICENSE.md)
+- [License](usage/LICENSE.md)
 
 ---
 
