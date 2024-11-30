@@ -3,7 +3,9 @@ name: Publish Python Package
 on:
   push:
     branches:
-      - main
+      - release
+    tags:
+      - 'v*.*.*'
 
 jobs:
   publish:
@@ -20,20 +22,28 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.8'
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install wheel twine
+        pip install setuptools wheel twine
 
     - name: Build Package
+      if: startsWith(github.ref, 'refs/tags/v')
       run: |
         python setup.py sdist bdist_wheel
 
     - name: Publish Package to PyPI
+      if: startsWith(github.ref, 'refs/tags/v')
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
       run: |
-        twine upload omni_authify/*
+        twine upload dist/*
+
+    # Step to clean up the dist directory after publishing to PyPI
+    - name: Clean Dist Directory After Release
+      if: success() && startsWith(github.ref, 'refs/tags/v')
+      run: |
+        rm -rf dist
