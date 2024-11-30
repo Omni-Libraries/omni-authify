@@ -5,7 +5,7 @@ client_id = settings.client_id
 client_secret = settings.client_secret
 redirect_uri = settings.redirect_uri
 
-provider = Facebook(client_id, client_secret, redirect_uri)
+provider = Facebook(client_id, client_secret, redirect_uri, fields = "public_profile,email")
 fields = "id,name,email,birthday,friends"
 
 # ==== Step 1: Get the authorization URL ====

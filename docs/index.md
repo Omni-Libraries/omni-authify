@@ -2,10 +2,18 @@
 
 ---
 <p align="center">
-  <a href="https://mukhsin-gitbook.gitbook.io/omni-authify/"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1"></a>
-  <a href="https://github.com/Omni-Libraries/omni-authify.git"><img src="https://img.shields.io/badge/Open_Source-❤️-FDA599?"/></a>
-  <a href="https://discord.gg/BQrvDpcw"><img src="https://img.shields.io/badge/Community-Join%20Us-blueviolet"/></a>
-  <a href="https://github.com/Omni-Libraries/omni-authify/issues"><img src="https://img.shields.io/github/issues/gitbookIO/gitbook"/></a>
+    <a href="https://mukhsin-gitbook.gitbook.io/omni-authify/">
+        <img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1" alt="Documentation"/>
+    </a>
+    <a href="https://github.com/Omni-Libraries/omni-authify.git">
+        <img src="https://img.shields.io/badge/Open_Source-❤️-FDA599?"/>
+    </a>
+    <a href="https://discord.gg/BQrvDpcw">
+        <img src="https://img.shields.io/badge/Community-Join%20Us-blueviolet" alt="Community"/>
+    </a>
+    <a href="https://github.com/Omni-Libraries/omni-authify/issues">
+        <img src="https://img.shields.io/github/issues/Omni-Libraries/omni-authify" alt="Issues"/>
+    </a>
 </p>
 
 ---

@@ -6,25 +6,18 @@ from .providers.instagram import Instagram
 # from .providers.google import Google
 # from .providers.twitter import Twitter
 # from .providers.github import GitHub
-#
-from .frameworks.django import OmniAuthifyDjango
-from .frameworks.django_drf import OmniAuthifyDRF
-# from .frameworks.flask import FlaskAuth
-# from .frameworks.fastapi import FastAPIAuth
 
 
 __all__ = [
     "Facebook",
     "Instagram",
-    # Other providers can be added once implemented
+    # Other providers will be added once implemented
     # "LinkedIn",
     # "Telegram",
     # "Twitter",
     # "Google",
     # "GitHub",
-
-    "OmniAuthifyDjango",
-    "OmniAuthifyDRF",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
+
