@@ -23,11 +23,16 @@ OMNI_AUTHIFY = {
             'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
             'redirect_uri': '🌐http://localhost:8000/facebook/callback',
             'state': 'your-unguessable-state', # optional
-            'fields': 'id,name,email,picture...'
+            'fields': 'email,public_profile...'
         },
         # Add other providers here if needed
     }
 }
+
+# Note: email and public_profile accesses is granted by default
+#       if you want any other fields, you need to pass Facebook App Review. 
+#       You can get those user info when fields are set to email and public_info:
+#               User Info: {'id': '12212964..........', 'name': "Name Surname", 'email': 'user@example.com'}
 ```
 
 ---
@@ -37,6 +42,12 @@ OMNI_AUTHIFY = {
 Learn how to create views to handle Facebook login and callback in your Django application.
 
 ### 📝 Prerequisites
+
+- **Installation**: Install Omni-Authify with Django support using the following command:
+
+  ```bash
+  pip install omni-authify[django]
+  ```
 
 - **Django 2.2 or higher**
 - Omni-Authify installed and configured (see [Installation Guide](../installation.md))
@@ -50,7 +61,7 @@ Create views to handle the login and callback processes.
 ```python
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from omni_authify.providers import Facebook
+from omni_authify import Facebook
 
 import os
 from dotenv import load_dotenv
@@ -61,7 +72,8 @@ load_dotenv()
 facebook_provider = Facebook(
     client_id=os.getenv('FACEBOOK_CLIENT_ID'),
     client_secret=os.getenv('FACEBOOK_CLIENT_SECRET'),
-    redirect_uri=os.getenv('FACEBOOK_REDIRECT_URI')
+    redirect_uri=os.getenv('FACEBOOK_REDIRECT_URI'),
+    fields=os.getenv('FACEBOOK_USER_FIELDS')
 )
 
 def facebook_login(request):
@@ -99,7 +111,7 @@ def facebook_callback(request):
 This version leverages the OmniAuthifyDjango helper class for a simpler implementation.
 
 ```python
-from omni_authify import OmniAuthifyDjango
+from omni_authify.frameworks.django import OmniAuthifyDjango
 
 def facebook_login(request):
     auth = OmniAuthifyDjango(provider_name='facebook')
@@ -110,8 +122,6 @@ def facebook_callback(request):
     # Todo: Authenticate/login the user and save the user_info on your own!
     return auth.callback(request)
 ```
-
----
 
 ## 🌐 Update URLs
 

@@ -4,6 +4,44 @@ The `Facebook` provider lets you sign in 🔓 users using their Facebook account
 
 ---
 
+## 🔧 Facebook App Setup Guide
+
+To use Facebook OAuth2 in your Django REST Framework app, you need to set up a Facebook App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
+
+### Step 1: Create a Facebook Developer Account
+1. Go to [Facebook for Developers](https://developers.facebook.com/).
+2. Log in with your Facebook account or create one if you don't have it.
+3. Click on **Get Started** to register as a developer.
+
+### Step 2: Create a Facebook App
+1. Once logged in, navigate to **My Apps** at the top right and click **Create App**.
+2. Choose the **App Type** that fits your use case. For OAuth, choose **Consumer**.
+3. Fill in the details like **App Name**, **Contact Email**, etc., and click **Create App ID**.
+
+### Step 3: Set Up Facebook Login
+1. After creating the app, navigate to **Add a Product** and select **Facebook Login**.
+2. Choose **Web** and enter your website URL.
+
+### Step 4: Configure OAuth Settings
+1. Go to **Settings > Basic** to find your **App ID** (`client_id`) and **App Secret** (`client_secret`). Make sure to store these securely.
+2. Under **Facebook Login > Settings**, add your `redirect_uri` under **Valid OAuth Redirect URIs**. This should match the redirect URL used in your code, e.g., `http://localhost:8000/facebook/callback`.
+
+### Step 5: App Review and Permissions
+1. **Permissions**: By default, only basic profile information is available. To access additional fields like email, you need to request specific permissions.
+2. **App Review**: Some permissions (e.g., email) require **App Review**. Go to **App Review > Permissions and Features** and submit for review.
+3. Ensure your app is in **Live** mode for production use. In **Development** mode, only users with roles (admin, developer, tester) can log in.
+
+### Step 6: Store Credentials Securely
+Add the following to your `.env` file:
+```env
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+FACEBOOK_REDIRECT_URI=http://localhost:8000/facebook/callback/
+```
+Use the `dotenv` package to load these variables in your Django project.
+
+
+
 ## 🚀 Getting Started
 
 First, import the needed 📦 class and set up your Facebook App ⚙️ settings:
@@ -15,7 +53,8 @@ from omni_authify.providers import Facebook
 facebook_provider = Facebook(
     client_id='🔑 your-facebook-client-id', 
     client_secret='🔒 your-facebook-client-secret',
-    redirect_uri='🌐 your-facebook-redirect-uri'
+    redirect_uri='🌐 your-facebook-redirect-uri',
+    fields='facebook-user-fields' # e.g: fields="id,name,email,picture,birthday"
 )
 ```
 

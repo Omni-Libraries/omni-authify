@@ -1,8 +1,13 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.conf import settings
-from django.contrib.auth.models import User
+try:
+    from rest_framework.views import APIView
+    from rest_framework.response import Response
+    from rest_framework import status
+    from django.conf import settings
+    from django.contrib.auth.models import User
+except ImportError as e:
+    raise ImportError("Django Rest Framework is not installed. Install it using 'pip install omni-authify[drf]'") \
+        from e
+
 from omni_authify import Facebook
 
 
@@ -13,7 +18,6 @@ class OmniAuthifyDRF:
         :param provider_name: The name of the provider such as Facebook or Twitter
         """
         home_page_settings = settings.OMNI_AUTHIFY['HOME_PAGE'].get('dashboard')
-
         self.home = home_page_settings.get('home')
 
         provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name=provider_name)

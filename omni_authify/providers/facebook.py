@@ -13,7 +13,7 @@ class Facebook(BaseOAuth2Provider):
     TOKEN_URL: str = "https://graph.facebook.com/v16.0/oauth/access_token"
     PROFILE_URL: str = "https://graph.facebook.com/me"
 
-    def __init__(self, client_id, client_secret, redirect_uri):
+    def __init__(self, client_id, client_secret, redirect_uri, fields):
         """
             Initialize the Facebook provider with client credentials.
 
@@ -22,7 +22,7 @@ class Facebook(BaseOAuth2Provider):
                 client_secret (str): The client secret provided by Facebook.
                 redirect_uri (str): The URI to redirect to after authentication.
         """
-        super().__init__(client_id, client_secret, redirect_uri)
+        super().__init__(client_id, client_secret, redirect_uri, fields)
 
 
     def get_authorization_url(self, state=None):
@@ -39,7 +39,7 @@ class Facebook(BaseOAuth2Provider):
             "client_id": self.client_id,
             "redirect_uri": self.redirect_uri,
             "response_type": "code",
-            "scope": "email,public_profile",
+            "scope": self.fields,
         }
 
         if state:

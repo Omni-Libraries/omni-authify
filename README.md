@@ -23,16 +23,12 @@
 **Omni-Authify** is a Python package that makes it easy to support OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI.
 
 ## 📚 Table of Contents
-- [Introduction](#omni-authify)
-- [Contributing](#contributing)
+- [Contributors](CONTRIBUTING.md)
 - [Development Setup](#development-setup)
-- [Documentation](#documentation)
-  - [Setup Guides](#setup-guides)
-  - [Provider Documentation](#provider-documentation)
-  - [Supported Frameworks](#supported-frameworks)
-  - [Installation Instructions](#installation-instructions)
-- [Contributors](#contributors)
-- [License](#license)
+- [Documentation](docs)
+  - [Setup](docs/Setup)
+  - [Provider Documentation](docs/providers.md)
+  - [Supported Frameworks](docs/usage)
 
 ---
 
@@ -40,16 +36,17 @@
 
 Omni-Authify has a detailed set of documentation files to guide you through setup, integration, and usage.
 
+### 📊 Provider Documentation
+- [Providers Overview](docs/providers.md)
+
+
 ### 📖 Setup Guides
-- [Facebook Setup Guide](docs/SetupGuide/facebook.md)
+- [Facebook Setup Guide](docs/Setup/facebook.md)
 - [Google Setup Guide](docs/SetupGuide/google.md)
 - [Twitter Setup Guide](docs/SetupGuide/twitter.md)
 - [LinkedIn Setup Guide](docs/SetupGuide/linkedin.md)
 - [GitHub Setup Guide](docs/SetupGuide/github.md)
 - [Telegram Setup Guide](docs/SetupGuide/telegram.md)
-
-### 📊 Provider Documentation
-- [Providers Overview](docs/providers.md)
 
 ### 🛠️ Supported Frameworks
 - [Django Setup Guide](docs/usage/django.md)
@@ -66,15 +63,15 @@ Omni-Authify has a detailed set of documentation files to guide you through setu
 
 We believe in the power of collaboration. Below are some of our amazing contributors:
 
-| Name                                                | LinkedIn                                                             |
-|-----------------------------------------------------|----------------------------------------------------------------------| 
-| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) |
+| Name                                                | LinkedIn                                                             | Project Spent Time                                                                                                                      |
+|-----------------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------| 
+| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) | ![Wakatime Badge](https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/c98e39e2-d018-43f8-939e-c9f47b059a2a.svg)                                                                                                                     |
 
 If you’d like to join this list, please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## 📜 License
 
-This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for more information.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
 
 ---
 
