@@ -31,9 +31,12 @@ class OmniAuthifyDjango:
         match provider_name:
             case 'facebook':
                 return Facebook(
-                    client_id=provider_settings.get('client_id'), client_secret=provider_settings.get('client_secret'),
-                    redirect_uri=provider_settings.get('redirect_uri'), fields=provider_settings.get('fields'),
-                    scope=provider_settings.get('scope'), )
+                    client_id=provider_settings.get('client_id'),
+                    client_secret=provider_settings.get('client_secret'),
+                    redirect_uri=provider_settings.get('redirect_uri'),
+                    fields=provider_settings.get('fields'),
+                    scope=provider_settings.get('scope'),
+                )
             case _:
                 raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")
 
