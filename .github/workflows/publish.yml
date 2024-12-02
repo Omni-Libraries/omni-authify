@@ -2,10 +2,8 @@ name: Publish Python Package
 
 on:
   push:
-    branches:
-      - release
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*'  # Trigger only on new version tags
 
 jobs:
   publish:
@@ -24,18 +22,20 @@ jobs:
       with:
         python-version: '3.8'
 
+    - name: Clean Dist Directory Before Build
+      run: |
+        rm -rf dist
+
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
 
     - name: Build Package
-      if: startsWith(github.ref, 'refs/tags/v')
       run: |
         python setup.py sdist bdist_wheel
 
     - name: Publish Package to PyPI
-      if: startsWith(github.ref, 'refs/tags/v')
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
@@ -44,6 +44,6 @@ jobs:
 
     # Step to clean up the dist directory after publishing to PyPI
     - name: Clean Dist Directory After Release
-      if: success() && startsWith(github.ref, 'refs/tags/v')
+      if: success()
       run: |
         rm -rf dist
