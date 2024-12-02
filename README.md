@@ -30,6 +30,80 @@
 
 ---
 
+```mermaid
+flowchart TD
+    %% Providers Subgraph
+    subgraph Providers ["🌍 OAuth2 Providers"]
+        google[" Google 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        facebook[" Facebook/Instagram 
+        OAuth 2.0
+        📦 Client ID/Secret
+        🔒 Scope: email,public_profile"]
+        twitter[" Twitter/X 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        linkedin[" LinkedIn 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        github[" GitHub 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        telegram[" Telegram 
+        Bot Token
+        🔑 API Token"]
+    end
+
+    %% Frameworks Subgraph
+    subgraph Frameworks ["🧰 Supported Frameworks"]
+        django[" Django 
+        Version: 3+
+        📦 pip install omni-authify[django]
+        🔧 Django>=4.2, <=5.1.3"]
+        djangoDRF[" Django-DRF 
+        Version: 3.3+
+        📦 pip install omni-authify[drf]
+        🔧 DRF>=3.12.3, <=3.15.2"]
+        fastapi[" FastAPI 
+        Latest Version
+        📦 pip install omni-authify[fastapi]
+        🔧 fastapi>=0.115.0"]
+        flask[" Flask 
+        Latest Version
+        📦 pip install omni-authify[flask]
+        🔧 Flask>=3.0.0"]
+    end
+
+    %% System Requirements
+    subgraph Requirements ["🔧 System Requirements"]
+        python[" Python 3.8+
+        🐍 Minimum Version"]
+        pip[" pip 24.3.1+
+        📦 Package Manager"]
+        requests[" requests>=2.32.3
+        🌐 HTTP Library"]
+    end
+
+    %% Connections
+    Providers --> |Integrated with| Frameworks
+    Requirements --> |Supports| Frameworks
+    
+    %% Styling
+    classDef providerStyle fill:#e6f2ff,stroke:#0066cc,stroke-width:2px;
+    classDef frameworkStyle fill:#f0f8ff,stroke:#1e90ff,stroke-width:2px;
+    classDef requirementsStyle fill:#f0fff0,stroke:#2e8b57,stroke-width:2px;
+    
+    class google,facebook,twitter,linkedin,github,telegram providerStyle;
+    class django,djangoDRF,fastapi,flask frameworkStyle;
+    class python,pip,requests requirementsStyle;
+
+    %% Additional Info
+    notes["🚀 Omni-Authify: 
+    Simplifying Social Logins
+    Easy OAuth2 Integration"]
+```
+
 ## 📄 Documentation
 
 Omni-Authify has a detailed set of documentation files to guide you through setup, integration, and usage.
