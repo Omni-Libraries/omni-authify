@@ -8,6 +8,7 @@ Omni-Authify currently supports the following OAuth2 providers:
 
 | 🔒 Auth Type | 🌐 Provider        | 📖 Documentation                 |
 |--------------|--------------------|----------------------------------|
+| OAuth 2.0    | Apple              | [Setup Guide](Setup/apple.md)    |
 | OAuth 2.0    | Google             | [Setup Guide](Setup/google.md)   |
 | OAuth 2.0    | Facebook/Instagram | [Setup Guide](Setup/facebook.md) |
 | OAuth 2.0    | Twitter/X          | [Setup Guide](Setup/twitter.md)  |

@@ -32,6 +32,20 @@
 
 ```mermaid
 flowchart TD
+    %% Value Proposition
+    valueProposition["🚀 Save Your Time and Spend it with your Family
+    <br/>⏱️ Integrate Multiple OAuth Providers in Minutes
+    <br/>🔓 Secure, Standardized Social Login Solution"]
+
+    %% System Requirements
+    subgraph Requirements ["🔧 System Requirements"]
+        python[" Python 3.8+
+        🐍 Minimum Version"]
+        pip[" pip 24.3.1+
+        📦 Package Manager"]
+        requests[" requests>=2.32.3
+        🌐 HTTP Library"]
+    end
     %% Providers Subgraph
     subgraph Providers ["🌍 OAuth2 Providers"]
         google[" Google 
@@ -50,11 +64,14 @@ flowchart TD
         github[" GitHub 
         OAuth 2.0
         📦 Client ID/Secret"]
+        apple[" Apple 
+        OAuth 2.0
+        📦 Client ID/Secret
+        🔒 Sign in with Apple"]
         telegram[" Telegram 
         Bot Token
         🔑 API Token"]
     end
-
     %% Frameworks Subgraph
     subgraph Frameworks ["🧰 Supported Frameworks"]
         django[" Django 
@@ -74,34 +91,21 @@ flowchart TD
         📦 pip install omni-authify[flask]
         🔧 Flask>=3.0.0"]
     end
-
-    %% System Requirements
-    subgraph Requirements ["🔧 System Requirements"]
-        python[" Python 3.8+
-        🐍 Minimum Version"]
-        pip[" pip 24.3.1+
-        📦 Package Manager"]
-        requests[" requests>=2.32.3
-        🌐 HTTP Library"]
-    end
-
     %% Connections
-    Providers --> |Integrated with| Frameworks
-    Requirements --> |Supports| Frameworks
+    valueProposition --> Requirements
+    Requirements --> Providers
+    Providers --> Frameworks
     
     %% Styling
-    classDef providerStyle fill:#e6f2ff,stroke:#0066cc,stroke-width:2px;
-    classDef frameworkStyle fill:#f0f8ff,stroke:#1e90ff,stroke-width:2px;
-    classDef requirementsStyle fill:#f0fff0,stroke:#2e8b57,stroke-width:2px;
+    classDef providerStyle fill:#f0f8ff,color:#003366,stroke:#6699cc,stroke-width:2px;
+    classDef frameworkStyle fill:#e6f3e6,color:#004d00,stroke:#66a366,stroke-width:2px;
+    classDef requirementsStyle fill:#fff0e6,color:#4d2600,stroke:#cc8533,stroke-width:2px;
+    classDef valuePropositionStyle fill:#e6f2ff,color:#000080,stroke:#4169e1,stroke-width:3px,font-weight:bold;
     
-    class google,facebook,twitter,linkedin,github,telegram providerStyle;
+    class google,facebook,twitter,linkedin,github,apple,telegram providerStyle;
     class django,djangoDRF,fastapi,flask frameworkStyle;
     class python,pip,requests requirementsStyle;
-
-    %% Additional Info
-    notes["🚀 Omni-Authify: 
-    Simplifying Social Logins
-    Easy OAuth2 Integration"]
+    class valueProposition valuePropositionStyle;
 ```
 
 ## 📄 Documentation
