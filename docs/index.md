@@ -21,6 +21,85 @@
 
 Omni-Authify is a Python library that makes OAuth2 authentication a breeze across multiple frameworks and providers. Its main goal is to give you a unified and easy-to-use interface for adding social logins to your applications.
 
+
+```mermaid
+flowchart TD
+    %% Value Proposition
+    valueProposition["🚀 Save Your Time and Spend it with your Family
+    <br/>⏱️ Integrate Multiple OAuth Providers in Minutes
+    <br/>🔓 Secure, Standardized Social Login Solution"]
+
+    %% System Requirements
+    subgraph Requirements ["🔧 System Requirements"]
+        python[" Python 3.8+
+        🐍 Minimum Version"]
+        pip[" pip 24.3.1+
+        📦 Package Manager"]
+        requests[" requests>=2.32.3
+        🌐 HTTP Library"]
+    end
+    %% Providers Subgraph
+    subgraph Providers ["🌍 OAuth2 Providers"]
+        google[" Google 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        facebook[" Facebook/Instagram 
+        OAuth 2.0
+        📦 Client ID/Secret
+        🔒 Scope: email,public_profile"]
+        twitter[" Twitter/X 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        linkedin[" LinkedIn 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        github[" GitHub 
+        OAuth 2.0
+        📦 Client ID/Secret"]
+        apple[" Apple 
+        OAuth 2.0
+        📦 Client ID/Secret
+        🔒 Sign in with Apple"]
+        telegram[" Telegram 
+        Bot Token
+        🔑 API Token"]
+    end
+    %% Frameworks Subgraph
+    subgraph Frameworks ["🧰 Supported Frameworks"]
+        django[" Django 
+        Version: 3+
+        📦 pip install omni-authify[django]
+        🔧 Django>=4.2, <=5.1.3"]
+        djangoDRF[" Django-DRF 
+        Version: 3.3+
+        📦 pip install omni-authify[drf]
+        🔧 DRF>=3.12.3, <=3.15.2"]
+        fastapi[" FastAPI 
+        Latest Version
+        📦 pip install omni-authify[fastapi]
+        🔧 fastapi>=0.115.0"]
+        flask[" Flask 
+        Latest Version
+        📦 pip install omni-authify[flask]
+        🔧 Flask>=3.0.0"]
+    end
+    %% Connections
+    valueProposition --> Requirements
+    Requirements --> Providers
+    Providers --> Frameworks
+    
+    %% Styling
+    classDef providerStyle fill:#f0f8ff,color:#003366,stroke:#6699cc,stroke-width:2px;
+    classDef frameworkStyle fill:#e6f3e6,color:#004d00,stroke:#66a366,stroke-width:2px;
+    classDef requirementsStyle fill:#fff0e6,color:#4d2600,stroke:#cc8533,stroke-width:2px;
+    classDef valuePropositionStyle fill:#e6f2ff,color:#000080,stroke:#4169e1,stroke-width:3px,font-weight:bold;
+    
+    class google,facebook,twitter,linkedin,github,apple,telegram providerStyle;
+    class django,djangoDRF,fastapi,flask frameworkStyle;
+    class python,pip,requests requirementsStyle;
+    class valueProposition valuePropositionStyle;
+```
+
 ## ✨ Features
 
 - **🌍 Multiple Providers**: Currently supports Facebook OAuth2 authentication, with more to come.
