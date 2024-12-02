@@ -9,10 +9,9 @@ Omni-Authify is a Python library that makes it easy to add OAuth2 authentication
 - [License](../LICENSE)
 
 ---
+## 📦 Installation Options 🛠️ 
 
-## 🛠️ Installation Guide
-
-### 🚀 Quick Start
+**Basic Installation**:
 
 Install Omni-Authify using pip:
 
@@ -29,24 +28,33 @@ pip install omni-authify[fastapi] # for FastAPI based projects
 pip install omni-authify[flask] # for Flask based projects
 ```
 
-### 📋 Requirements
+# 📋 Requirements
 
-- **Python 3.7+**
-- **pip 24.3.1+**
+* **Python 3.8+**
+* **pip 24.3.1+**
 
-### 🔗 Dependencies
+## 🔗 Dependencies
 
-- **requests**: `requests>=2.32.3`
+* **requests**: `requests>=2.32.3`
+
+## 🧩 Framework-Specific Dependencies
+
+### Django Support
+* **Django**: `Django>=4.2, <=5.1.3`
+* **Django REST Framework**: `djangorestframework>=3.12.3, <=3.15.2`
+
+### Web Framework Support
+* **Flask**: `Flask>=3.0.0`
+* **FastAPI**: `fastapi>=0.115.0`
 
 ---
 
 ## 🚀 Usage Guides
 
-Omni-Authify supports multiple providers, including Facebook, Instagram, and Google. Each provider requires specific credentials to get started.
+Omni-Authify supports multiple providers, including Facebook, Instagram, and Google. 
+Each provider requires specific credentials to get started.
 
 ### ⚙️ Provider Configuration
-
-#### Facebook/Instagram
 ```python
 # settings.py
 

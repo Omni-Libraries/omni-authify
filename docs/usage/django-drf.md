@@ -11,13 +11,7 @@ Add the Omni-Authify settings to your Django project settings to include Faceboo
 ```python
 import os
 
-OMNI_AUTHIFY = {
-    'HOME_PAGE': {
-        'dashboard': {
-            'home': 'the-page_name-where-you-redirect-the-user-after-authentication-and-login'
-        }
-    },
-      
+OMNI_AUTHIFY = {      
     'PROVIDERS': {
         'facebook': {
             'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
@@ -26,7 +20,11 @@ OMNI_AUTHIFY = {
             'state': 'your-unguessable-state', # optional
             'fields': 'email,public_profile...'
         },
+              
         # Add other providers here if needed
+        'google': {
+            # Coming....
+        }
     }
 }
 ```
