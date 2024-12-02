@@ -1,8 +1,9 @@
 try:
+    from typing import Dict, Set, Tuple
     from django.conf import settings
     from django.contrib.auth import login
     from django.contrib.auth.models import User
-    from django.http import HttpResponse, HttpResponseRedirect
+    from django.http import HttpResponseRedirect
     from django.shortcuts import redirect
 except ImportError as e:
     raise ImportError("Django is not installed. Install it using 'pip install omni-authify[django]'") from e
@@ -16,18 +17,13 @@ class OmniAuthifyDjango:
         Retrieves provider settings from Django settings
         :param provider_name:
         """
-        home_page_settings = settings.OMNI_AUTHIFY['HOME_PAGE'].get('dashboard')
-        self.home = home_page_settings.get('home')
-
-        auto_authenticate = settings.OMNI_AUTHIFY['AUTO_AUTHENTICATE'].get('auth')
-        self.auto_authenticate = auto_authenticate.get('authenticate')
-
         provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name)
         if not provider_settings:
             raise ValueError(f"Provider settings for '{provider_name}' not found in OMNI_AUTHIFY settings.")
 
         self.provider_name = provider_name
-        self.fields = provider_settings.get('fields', 'id,name,email')  # Default fields if not set
+        self.fields = provider_settings.get('fields')
+        self.scope = provider_settings.get('scope')
         self.state = provider_settings.get('state')
         self.provider = self.get_provider(provider_name, provider_settings)
 
@@ -38,29 +34,22 @@ class OmniAuthifyDjango:
                     client_id=provider_settings.get('client_id'),
                     client_secret=provider_settings.get('client_secret'),
                     redirect_uri=provider_settings.get('redirect_uri'),
+                    fields=provider_settings.get('fields'),
+                    scope=provider_settings.get('scope'),
                 )
-            # case 'google':
-            #     return Google(
-            #
-            #     )
-            # case 'twitter':
-            #     return twitter(
-            #
-            #     )
-            #
-            # # add other providers as they get ready
             case _:
-                return f"Provider '{provider_name}' is not implemented."
+                raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")
 
-    def login(self, request) -> redirect:
+    def login(self, request, scope=None) -> redirect:
         """
         Generates the authorization URL and redirects the user
-        :return: url
         """
-        auth_url = self.provider.get_authorization_url(state=self.state)
+        scope = scope or self.scope
+        auth_url = self.provider.get_authorization_url(state=self.state, scope=scope)
         return redirect(auth_url)
 
-    def callback(self, request) -> HttpResponse | HttpResponseRedirect | dict:
+
+    def callback(self, request) -> dict[str, bool | str | int] | tuple[dict, int] | dict[str, bool | str | int]:
         """
         Handles the callback from the provider, exchanges the code for an access token, fetches user info,
         and authenticates the user.
@@ -69,15 +58,15 @@ class OmniAuthifyDjango:
         """
         error = request.GET.get('error')
         if error:
-            return HttpResponse(f"Error: {error}", status=400)
+            return {'error':True, 'message':f"Error: {error}", 'status':400}
 
         code = request.GET.get('code')
         if not code:
-            return HttpResponse(f"No code provided", status=400)
+            raise ValueError(f"No code provided")
 
         try:
             access_token = self.provider.get_access_token(code=code)
             user_info = self.provider.get_user_profile(access_token=access_token, fields=self.fields)
-            return user_info
+            return user_info, 200
         except Exception as e:
-            return HttpResponse(f"An error occurred: {e}", status=500)
+            return {'error':True, 'message':f"Error: {e}", 'status':500, }
