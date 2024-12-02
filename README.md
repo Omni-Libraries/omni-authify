@@ -24,11 +24,9 @@
 
 ## 📚 Table of Contents
 - [Contributors](CONTRIBUTING.md)
-- [Development Setup](#development-setup)
 - [Documentation](docs)
   - [Setup](docs/Setup)
-  - [Provider Documentation](docs/providers.md)
-  - [Supported Frameworks](docs/usage)
+  - [Supported Frameworks](docs/providers.md)
 
 ---
 
@@ -42,11 +40,11 @@ Omni-Authify has a detailed set of documentation files to guide you through setu
 
 ### 📖 Setup Guides
 - [Facebook Setup Guide](docs/Setup/facebook.md)
-- [Google Setup Guide](docs/SetupGuide/google.md)
-- [Twitter Setup Guide](docs/SetupGuide/twitter.md)
-- [LinkedIn Setup Guide](docs/SetupGuide/linkedin.md)
-- [GitHub Setup Guide](docs/SetupGuide/github.md)
-- [Telegram Setup Guide](docs/SetupGuide/telegram.md)
+- [Google Setup Guide](docs/Setup/google.md)
+- [Twitter Setup Guide](docs/Setup/twitter.md)
+- [LinkedIn Setup Guide](docs/Setup/linkedin.md)
+- [GitHub Setup Guide](docs/Setup/github.md)
+- [Telegram Setup Guide](docs/Setup/telegram.md)
 
 ### 🛠️ Supported Frameworks
 - [Django Setup Guide](docs/usage/django.md)
@@ -63,9 +61,9 @@ Omni-Authify has a detailed set of documentation files to guide you through setu
 
 We believe in the power of collaboration. Below are some of our amazing contributors:
 
-| Name                                                | LinkedIn                                                             | Project Spent Time                                                                                                                      |
-|-----------------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------| 
-| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) | ![Wakatime Badge](https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/c98e39e2-d018-43f8-939e-c9f47b059a2a.svg)                                                                                                                     |
+| Name                                                | LinkedIn                                                             | Project Spent Time                                                                                                                       |
+|-----------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------| 
+| [Mukhsin Mukhtorov](https://github.com/Mukhsin0508) | [LinkedIn](https://www.linkedin.com/in/mukhsin-mukhtorov-58b26221b/) | ![Wakatime Badge](https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/c98e39e2-d018-43f8-939e-c9f47b059a2a.svg) |
 
 If you’d like to join this list, please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
