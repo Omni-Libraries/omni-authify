@@ -16,6 +16,17 @@
     </a>
 </p>
 
+
+---
+<p align="center">
+    <a href="https://app.screendesk.io/recordings/new?ak=HnyR4g&key=BSlsFw&src=rria">
+        <img src="https://img.shields.io/badge/Submit_Issue_with_Screen_Recording-%F0%9F%93%B7-green" alt="Submit Issue with Screen Recording"/>
+    </a>
+    <br>
+    If you're experiencing any issues or have suggestions, please record your screen and submit it <a href="https://app.screendesk.io/recordings/new?ak=HnyR4g&key=BSlsFw&src=rria">here</a>! This helps us understand your problem better and resolve it more efficiently.
+</p>
+
+
 ---
 
 
