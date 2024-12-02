@@ -17,8 +17,6 @@ class OmniAuthifyDRF:
         Retrieve provider settings from Django settings
         :param provider_name: The name of the provider such as Facebook or Twitter
         """
-        home_page_settings = settings.OMNI_AUTHIFY['HOME_PAGE'].get('dashboard')
-        self.home = home_page_settings.get('home')
 
         provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name=provider_name)
         if not provider_settings:
@@ -26,36 +24,53 @@ class OmniAuthifyDRF:
 
         self.provider_name = provider_name
         self.fields = provider_settings.get('fields')
+        self.scope = provider_settings.get('scope')
         self.state = provider_settings.get('state')
         self.provider = self.get_provider(provider_name, provider_settings)
 
     def get_provider(self, provider_name, provider_settings):
-        if provider_name == 'facebook':
-            return Facebook(
-                client_id=provider_settings.get('client_id'),
-                client_secret=provider_settings.get('client_secret'),
-                redirect_uri=provider_settings.get('redirect_uri'),
-            )
+        match provider_name:
+            case 'facebook':
+                return Facebook(
+                    client_id=provider_settings.get('client_id'),
+                    client_secret=provider_settings.get('client_secret'),
+                    redirect_uri=provider_settings.get('redirect_uri'),
+                    scope=provider_settings.get('scope'),
+                    fields=provider_settings.get('fields'),
+                )
 
-        # elif provider_name == 'twitter':
-        # elif provider_name == 'google':
+            # case 'google':
+            #     return Google(
+            #
+            #     )
+            # case 'twitter':
+            #     return twitter(
+            #
+            #     )
+            #
+            # # add other providers as they get ready
+            case _:
+                return f"Provider '{provider_name}' is not implemented."
 
-        else:
-            raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")
-
-    def get_auth_url(self):
+    def get_auth_url(self, request, scope=None):
         """
         Generate the authorization URL
         :return:
         """
-        return  self.provider.get_authorization_url(state=self.state)
+        scope = scope or self.scope
+        return  self.provider.get_authorization_url(state=self.state, scope=scope)
 
-    def get_user_info(self, code):
+    def get_user_info(self, request, code):
         """
         Exchange code for access token and fetch user profile
+        :param request:
         :param code: code from the provider to get access token
         :return:
         """
+        error = request.GET.get('error')
+        if error:
+            return {'error':True, 'message':f"Error: {error}", 'status':400}
+
         access_token = self.provider.get_access_token(code=code)
         user_info = self.provider.get_user_profile(access_token=access_token, fields=self.fields)
         return user_info
