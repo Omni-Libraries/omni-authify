@@ -1,9 +1,9 @@
-# Omni-Authify Documentation
+# Installation Guide
 
 Omni-Authify is a Python library that makes it easy to add OAuth2 authentication to your applications. This documentation will guide you through installation, usage, and configuration.
 
 ## 📚 Table of Contents
-- [Usage Guides](#usage-guides)
+- [Usage Guides](usage)
 - [Supported Providers](providers.md)
 - [Contributing](../CONTRIBUTING.md)
 - [License](../LICENSE)
@@ -17,7 +17,16 @@ Omni-Authify is a Python library that makes it easy to add OAuth2 authentication
 Install Omni-Authify using pip:
 
 ```bash
-pip install omni-authify
+pip install omni-authify[django] # for Django based projects
+```
+```bash
+pip install omni-authify[drf] # for Django Rest framework base project
+```
+```shell
+pip install omni-authify[fastapi] # for FastAPI based projects
+```
+```shell
+pip install omni-authify[flask] # for Flask based projects
 ```
 
 ### 📋 Requirements
@@ -38,24 +47,30 @@ Omni-Authify supports multiple providers, including Facebook, Instagram, and Goo
 ### ⚙️ Provider Configuration
 
 #### Facebook/Instagram
-
 ```python
-var = {
-    'client_id': 'YOUR_APP_ID',
-    'client_secret': 'YOUR_APP_SECRET',
-    'redirect_uri': 'YOUR_REDIRECT_URI',
-    'scope': 'email,public_profile'
-}
-```
+# settings.py
 
-#### Google
+import os 
+from dotenv import load_dotenv
 
-```python
-var = {
-    'client_id': 'YOUR_CLIENT_ID',
-    'client_secret': 'YOUR_CLIENT_SECRET',
-    'redirect_uri': 'YOUR_REDIRECT_URI',
-    'scope': 'email profile'
+load_dotenv()
+
+OMNI_AUTHIFY = {
+    'PROVIDERS': {
+        'facebook': {
+            'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
+            'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('FACEBOOK_REDIRECT_URI'),
+            'state': 'you-super-state', # optional
+            'scope': 'email,public_profile', # by default | add other FB app permissions you have!
+            'fields': 'id,name,email,picture',
+        },
+        
+        # Add other providers here if needed
+        'google': {
+            # Coming....
+        }
+    }
 }
 ```
 
