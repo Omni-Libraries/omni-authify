@@ -1,4 +1,4 @@
-# Omni-Authify Supported Providers & Frameworks
+# Supported Providers & Frameworks
 
 Omni-Authify supports a variety of OAuth2 providers and frameworks to make integrating social logins straightforward.
 
