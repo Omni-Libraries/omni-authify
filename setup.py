@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="omni-authify",
-    version="0.1.1",
+    version="0.1.2",
     license="MIT",
     download_url="https://github.com/Omni-Libraries/omni-authify.git",
     changelog="https://omni-libraries.mukhsin.space/installation",
