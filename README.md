@@ -15,6 +15,9 @@
     <a href="https://github.com/Omni-Libraries/omni-authify/issues">
         <img src="https://img.shields.io/github/issues/Omni-Libraries/omni-authify" alt="Issues"/>
     </a>
+    <a href="https://pypi.org/project/omni-authify/">  
+        <img src="https://img.shields.io/pypi/dm/omni-authify" alt="PyPI Downloads"/>
+    </a>
 </p>
 
 
