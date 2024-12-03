@@ -1,61 +1,84 @@
-# Omni-Authify Documentation
+# Installation Guide
 
 Omni-Authify is a Python library that makes it easy to add OAuth2 authentication to your applications. This documentation will guide you through installation, usage, and configuration.
 
 ## 📚 Table of Contents
-- [Usage Guides](#usage-guides)
+- [Usage Guides](usage)
 - [Supported Providers](providers.md)
 - [Contributing](../CONTRIBUTING.md)
 - [License](../LICENSE)
 
 ---
+## 📦 Installation Options 🛠️ 
 
-## 🛠️ Installation Guide
-
-### 🚀 Quick Start
+**Basic Installation**:
 
 Install Omni-Authify using pip:
 
 ```bash
-pip install omni-authify
+pip install omni-authify[django] # for Django based projects
+```
+```bash
+pip install omni-authify[drf] # for Django Rest framework base project
+```
+```shell
+pip install omni-authify[fastapi] # for FastAPI based projects
+```
+```shell
+pip install omni-authify[flask] # for Flask based projects
 ```
 
-### 📋 Requirements
+# 📋 Requirements
 
-- **Python 3.7+**
-- **pip 24.3.1+**
+* **Python 3.8+**
+* **pip 24.3.1+**
 
-### 🔗 Dependencies
+## 🔗 Dependencies
 
-- **requests**: `requests>=2.32.3`
+* **requests**: `requests>=2.32.3`
+
+## 🧩 Framework-Specific Dependencies
+
+### Django Support
+* **Django**: `Django>=4.2, <=5.1.3`
+* **Django REST Framework**: `djangorestframework>=3.12.3, <=3.15.2`
+
+### Web Framework Support
+* **Flask**: `Flask>=3.0.0`
+* **FastAPI**: `fastapi>=0.115.0`
 
 ---
 
 ## 🚀 Usage Guides
 
-Omni-Authify supports multiple providers, including Facebook, Instagram, and Google. Each provider requires specific credentials to get started.
+Omni-Authify supports multiple providers, including Facebook, Instagram, and Google. 
+Each provider requires specific credentials to get started.
 
 ### ⚙️ Provider Configuration
-
-#### Facebook/Instagram
-
 ```python
-var = {
-    'client_id': 'YOUR_APP_ID',
-    'client_secret': 'YOUR_APP_SECRET',
-    'redirect_uri': 'YOUR_REDIRECT_URI',
-    'scope': 'email,public_profile'
-}
-```
+# settings.py
 
-#### Google
+import os 
+from dotenv import load_dotenv
 
-```python
-var = {
-    'client_id': 'YOUR_CLIENT_ID',
-    'client_secret': 'YOUR_CLIENT_SECRET',
-    'redirect_uri': 'YOUR_REDIRECT_URI',
-    'scope': 'email profile'
+load_dotenv()
+
+OMNI_AUTHIFY = {
+    'PROVIDERS': {
+        'facebook': {
+            'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
+            'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('FACEBOOK_REDIRECT_URI'),
+            'state': 'you-super-state', # optional
+            'scope': 'email,public_profile', # by default | add other FB app permissions you have!
+            'fields': 'id,name,email,picture',
+        },
+        
+        # Add other providers here if needed
+        'google': {
+            # Coming....
+        }
+    }
 }
 ```
 

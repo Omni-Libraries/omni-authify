@@ -10,6 +10,7 @@ __pycache__/
 venv-authify
 .test_pypirc
 .pypirc
+pypinfo-443508-0f1de093ba2e.json
 
 # Distribution / packaging
 .Python

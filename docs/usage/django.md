@@ -24,7 +24,11 @@ OMNI_AUTHIFY = {
             'scope': 'email,public_profile', # by default | add other FB app permissions you have!
             'fields': 'id,name,email,picture',
         },
+                
         # Add other providers here if needed
+        'google': {
+            # Coming....
+        }
     }
 }
 
