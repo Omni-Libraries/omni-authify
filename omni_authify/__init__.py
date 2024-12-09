@@ -3,7 +3,7 @@ from .providers.instagram import Instagram
 
 # Commented out providers not yet implemented
 # from .providers.linkedin import LinkedIn
-# from .providers.google import Google
+from .providers.google import Google
 # from .providers.twitter import Twitter
 # from .providers.github import GitHub
 
@@ -15,7 +15,7 @@ __all__ = [
     # "LinkedIn",
     # "Telegram",
     # "Twitter",
-    # "Google",
+    "Google",
     # "GitHub",
 ]
 

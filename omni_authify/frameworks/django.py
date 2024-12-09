@@ -8,7 +8,7 @@ try:
 except ImportError as e:
     raise ImportError("Django is not installed. Install it using 'pip install omni-authify[django]'") from e
 
-from omni_authify import Facebook
+from omni_authify import Facebook, Google
 
 
 class OmniAuthifyDjango:
@@ -37,6 +37,13 @@ class OmniAuthifyDjango:
                     fields=provider_settings.get('fields'),
                     scope=provider_settings.get('scope'),
                 )
+            case 'google':
+                return Google(
+                    client_id=provider_settings.get('client_id'),
+                    redirect_uri=provider_settings.get('redirect_uri'),
+                    scope=provider_settings.get('scope', 'openid%20email%20profile'),
+                )
+            
             case _:
                 raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")
 

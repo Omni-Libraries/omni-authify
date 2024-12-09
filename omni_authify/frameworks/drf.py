@@ -8,7 +8,7 @@ except ImportError as e:
     raise ImportError("Django Rest Framework is not installed. Install it using 'pip install omni-authify[drf]'") \
         from e
 
-from omni_authify import Facebook
+from omni_authify import Facebook, Google
 
 
 class OmniAuthifyDRF:
@@ -39,10 +39,13 @@ class OmniAuthifyDRF:
                     fields=provider_settings.get('fields'),
                 )
 
-            # case 'google':
-            #     return Google(
-            #
-            #     )
+            case 'google':
+                return Google(
+                    client_id=provider_settings.get('client_id'),
+                    redirect_uri=provider_settings.get('redirect_uri'),
+                    scope=provider_settings.get('scope', 'openid%20email%20profile'),
+            
+                )
             # case 'twitter':
             #     return twitter(
             #
