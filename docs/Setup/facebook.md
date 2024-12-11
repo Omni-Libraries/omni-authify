@@ -54,6 +54,7 @@ facebook_provider = Facebook(
     client_id='🔑 your-facebook-client-id', 
     client_secret='🔒 your-facebook-client-secret',
     redirect_uri='🌐 your-facebook-redirect-uri',
+    scope='email,public_profile',
     fields='facebook-user-fields' # e.g: fields="id,name,email,picture,birthday"
 )
 ```

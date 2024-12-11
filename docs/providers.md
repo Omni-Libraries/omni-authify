@@ -1,4 +1,4 @@
-# Omni-Authify Supported Providers & Frameworks
+# Supported Providers & Frameworks
 
 Omni-Authify supports a variety of OAuth2 providers and frameworks to make integrating social logins straightforward.
 
@@ -6,13 +6,14 @@ Omni-Authify supports a variety of OAuth2 providers and frameworks to make integ
 
 Omni-Authify currently supports the following OAuth2 providers:
 
-| 🔒 Auth Type | 🌐 Provider        | 📖 Documentation               |
-|--------------|--------------------|--------------------------------|
-| OAuth 2.0    | Google             | [Setup Guide](Setup/google.md) |
+| 🔒 Auth Type | 🌐 Provider        | 📖 Documentation                 |
+|--------------|--------------------|----------------------------------|
+| OAuth 2.0    | Apple              | [Setup Guide](Setup/apple.md)    |
+| OAuth 2.0    | Google             | [Setup Guide](Setup/google.md)   |
 | OAuth 2.0    | Facebook/Instagram | [Setup Guide](Setup/facebook.md) |
-| OAuth 2.0    | Twitter/X          | [Setup Guide](Setup/twitter.md) |
+| OAuth 2.0    | Twitter/X          | [Setup Guide](Setup/twitter.md)  |
 | OAuth 2.0    | LinkedIn           | [Setup Guide](Setup/linkedin.md) |
-| OAuth 2.0    | GitHub             | [Setup Guide](Setup/github.md) |
+| OAuth 2.0    | GitHub             | [Setup Guide](Setup/github.md)   |
 | Bot Token    | Telegram           | [Setup Guide](Setup/telegram.md) |
 
 ---
