@@ -7,26 +7,34 @@ Easily integrate Facebook OAuth2 authentication into your Django REST Framework 
 ## ⚙️ Configure Settings
 
 Add the Omni-Authify settings to your Django project settings to include Facebook and/or any other OAuth providers.
-
 ```python
 import os
+from dotenv import load_dotenv
 
-OMNI_AUTHIFY = {      
+load_dotenv()
+
+OMNI_AUTHIFY = {
     'PROVIDERS': {
         'facebook': {
             'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
             'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
-            'redirect_uri': '🌐http://localhost:8000/facebook/callback',
-            'state': 'your-unguessable-state', # optional
-            'fields': 'email,public_profile...'
+            'redirect_uri': os.getenv('FACEBOOK_REDIRECT_URI'),
+            'state': 'you-super-state', # optional
+            'scope': 'email,public_profile', # by default | add other FB app permissions you have!
+            'fields': 'id,name,email,picture',
         },
-              
+                
         # Add other providers here if needed
         'google': {
             # Coming....
         }
     }
 }
+
+# Note: email and public_profile permissions is granted by default
+#       if you want any other fields, you need to pass Facebook App Review. 
+#       You can get those user info when fields are set to email and public_info:
+#               User Info: {'id': '12212964..........', 'name': "Name Surname", 'email': 'user@example.com'}
 ```
 
 ---
@@ -52,62 +60,6 @@ Learn how to create API views to handle Facebook login and callback in your Djan
 Create API views to handle the login and callback processes.
 
 #### **views.py**
-
-```python
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from omni_authify.providers.facebook import Facebook
-
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-class FacebookLoginAPIView(APIView):
-    def get(self, request):
-        # === Initialize the provider with environment variables ====
-        facebook_provider = Facebook(
-            client_id=os.getenv('FACEBOOK_CLIENT_ID'),
-            client_secret=os.getenv('FACEBOOK_CLIENT_SECRET'),
-            redirect_uri=os.getenv('FACEBOOK_REDIRECT_URI'),
-            fields=os.getenv('FACEBOOK_USER_FIELDS')
-        )
-        # ==== Generate authorization URL and return it in the response ====
-        auth_url = facebook_provider.get_authorization_url(state='your_random_state')
-        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
-
-class FacebookCallbackAPIView(APIView):
-    def get(self, request):
-        # ==== Get authorization code from the request ====
-        code = request.GET.get('code')
-        if not code:
-            return Response({'error': 'No code provided'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            # ==== Initialize the provider with environment variables ====
-            facebook_provider = Facebook(
-                client_id=os.getenv('FACEBOOK_CLIENT_ID'),
-                client_secret=os.getenv('FACEBOOK_CLIENT_SECRET'),
-                redirect_uri=os.getenv('FACEBOOK_REDIRECT_URI'),
-                fields=os.getenv('FACEBOOK_USER_FIELDS')
-            )
-            # ==== Exchange code for access token ====
-            access_token = facebook_provider.get_access_token(code)
-            # ==== Fetch user profile information ====
-            user_info = facebook_provider.get_user_profile(access_token)
-            # TODO: Authenticate the user and return a token
-            return Response({'user_info': user_info}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-```
-
----
-
-### 🔁 Alternative Implementation
-
-#### **views.py (Alternative Approach)**
-
 This version uses the OmniAuthifyDRF helper class for an easier implementation.
 
 ```python
