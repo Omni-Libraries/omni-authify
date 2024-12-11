@@ -14,7 +14,7 @@ from omni_authify import Facebook
 class OmniAuthifyDRF:
     def __init__(self, provider_name):
         """
-        Retrieve provider settings from Django settings
+        Retrieve provider settings from Django-rest framework settings
         :param provider_name: The name of the provider such as Facebook or Twitter
         """
 

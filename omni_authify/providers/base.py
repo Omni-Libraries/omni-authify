@@ -5,11 +5,11 @@ class BaseOAuth2Provider(abc.ABC):
     def __init__(self, client_id, client_secret, redirect_uri, fields, scope):
 
         # ======== Validate input parameters ========
-        assert client_id, "client_id must be provided"
-        assert client_secret, "client_secret must be provided"
-        assert redirect_uri, "redirect_uri must be provided"
-        assert fields, "fields must be provided"
-        assert scope, "scope must be provided"
+        assert client_id, "FACEBOOK_CLIENT_ID must be provided"
+        assert client_secret, "FACEBOOK_CLIENT_SECRET must be provided"
+        assert redirect_uri, "FACEBOOK_REDIRECT_URI must be provided"
+        assert scope, "FACEBOOK_SCOPE must be provided"
+        assert fields, "FACEBOOK_FIELDS must be provided"
 
         # ======== Assign input params to the instance variables ========
         self.client_id = client_id

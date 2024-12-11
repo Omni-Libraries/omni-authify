@@ -14,7 +14,9 @@ class TestFacebook(unittest.TestCase):
         self.provider = Facebook(
             client_id=self.client_id,
             client_secret=self.client_secret,
-            redirect_uri=self.redirect_uri
+            redirect_uri=self.redirect_uri,
+            fields='id,name,email,picture',
+            scope='your_strong_password'
         )
 
     def test_get_authorization_url(self):
