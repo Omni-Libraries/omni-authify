@@ -118,12 +118,6 @@ flowchart TD
 - **⚡ Easy to Use**: Requires minimal setup to get started.
 - **🚀 Extensible**: Designed to support more providers and frameworks as your needs grow.
 
-## 📚 Table of Contents
-
-- [Installation](installation.md)
-- [Supported Providers and Frameworks](providers.md)
-- [License](usage/LICENSE.md)
-
 ---
 
 ## 🚀 Usage Examples
@@ -131,43 +125,60 @@ flowchart TD
 Follow the example below to quickly integrate Omni-Authify into your application.
 
 ```python
-from omni_authify.providers import Facebook
+from omni_authify.providers import Facebook, GitHub
 
-# Initialize the provider
+
+# ==== Initialize the Facebook provider ====
 facebook_provider = Facebook(
     client_id='your-client-id',
     client_secret='your-client-secret',
     redirect_uri='your-redirect-uri'
 )
-
 # Get authorization URL
-auth_url = facebook_provider.get_authorization_url(state='your-state')
-
+facebook_auth_url = facebook_provider.get_authorization_url(state='your-state')
 # After redirect and code exchange
-access_token = facebook_provider.get_access_token(code='authorization-code')
-
+facebook_access_token = facebook_provider.get_access_token(code='authorization-code')
 # Fetch user profile
-user_info = facebook_provider.get_user_profile(access_token, fields='your-fields')
+facebook_user_info = facebook_provider.get_user_profile(facebook_access_token, fields='your-fields')
+
+
+
+# ==== Initialize the GitHub provider ====
+github_provider = GitHub(
+    client_id='🔑 your-facebook-client-id', 
+    client_secret='🔒 your-facebook-client-secret',
+    redirect_uri='🌐 your-facebook-redirect-uri',
+    scope="user,repo"
+)
+# Get authorization URL
+github_auth_url = github_provider.get_authorization_url(state='your-state')
+# After redirect and code exchange
+github_access_token = github_provider.get_access_token(code='authorization-code')
+# Fetch user profile
+github_user_info = github_provider.get_user_profile(github_access_token)
+
+
 ```
 
 ---
 
 ## 🛠️ Installation Guide
 
-Check out the full installation guide [here](installation.md) for detailed instructions on how to add Omni-Authify to your project.
+Check out the full installation guide - [Installation](https://omni-libraries.mukhsin.space/installation) for detailed instructions on how to add Omni-Authify to your project.
 
 ## 📜 Supported Providers and Frameworks
 
-Omni-Authify currently supports Facebook OAuth2 and integrates smoothly with Django, Django REST Framework (DRF), 
-FastAPI and Flask. For a list of all supported providers and more details, check [this page](providers.md).
+Omni-Authify currently supports Facebook, GitHub OAuth2 and integrates smoothly with Django, Django REST Framework 
+(DRF), FastAPI and Flask. For a list of all supported providers and more details, check - [Supported Providers and Frameworks](https://omni-libraries.mukhsin.space/providers).
 
 ## 🔐 License
 
-This project is licensed under the MIT License. See the [LICENSE file](../LICENSE) for more information.
+This project is licensed under the MIT License. See the 📚- [License](https://omni-libraries.mukhsin.space/usage/license) for more information.
 
 ---
 
 Omni-Authify is your go-to solution for easy social login integration, whether you're building a simple python 
-project or scaling up with DRF or other frameworks like FastAPI or Flask. Give it a spin and enjoy smooth OAuth2 
+project or scaling up with Django,  DRF or other frameworks like FastAPI or Flask. Give it a spin and enjoy smooth 
+OAuth2 
 authentication!
 
