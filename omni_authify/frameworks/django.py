@@ -8,14 +8,14 @@ try:
 except ImportError as e:
     raise ImportError("Django is not installed. Install it using 'pip install omni-authify[django]'") from e
 
-from omni_authify import Facebook
+from omni_authify.core.oauth import get_provider
 
 
 class OmniAuthifyDjango:
     def __init__(self, provider_name):
         """
-        Retrieves provider settings from Django settings
-        :param provider_name:
+        Retrieves provider settings from Django settings for authentication.
+        :param provider_name: facebook, github,
         """
         provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name)
         if not provider_settings:
@@ -25,22 +25,9 @@ class OmniAuthifyDjango:
         self.fields = provider_settings.get('fields')
         self.scope = provider_settings.get('scope')
         self.state = provider_settings.get('state')
-        self.provider = self.get_provider(provider_name, provider_settings)
+        self.provider = get_provider(provider_name, provider_settings)
 
-    def get_provider(self, provider_name, provider_settings):
-        match provider_name:
-            case 'facebook':
-                return Facebook(
-                    client_id=provider_settings.get('client_id'),
-                    client_secret=provider_settings.get('client_secret'),
-                    redirect_uri=provider_settings.get('redirect_uri'),
-                    fields=provider_settings.get('fields'),
-                    scope=provider_settings.get('scope'),
-                )
-            case _:
-                raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")
-
-    def login(self, request, scope=None) -> redirect:
+    def login(self, scope=None) -> redirect:
         """
         Generates the authorization URL and redirects the user
         """
@@ -70,3 +57,4 @@ class OmniAuthifyDjango:
             return user_info, 200
         except Exception as e:
             return {'error':True, 'message':f"Error: {e}", 'status':500, }
+

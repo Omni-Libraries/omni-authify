@@ -6,7 +6,7 @@ The `Facebook` provider lets you sign in 🔓 users using their Facebook account
 
 ## 🔧 Facebook App Setup Guide
 
-To use Facebook OAuth2 in your Django REST Framework app, you need to set up a Facebook App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
+To use Facebook OAuth2 in your app, you need to set up a Facebook App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
 
 ### Step 1: Create a Facebook Developer Account
 1. Go to [Facebook for Developers](https://developers.facebook.com/).
