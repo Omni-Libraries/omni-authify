@@ -15,6 +15,12 @@ OMNI_AUTHIFY = {
             'scope':os.getenv('FACEBOOK_SCOPE'),  # by default | add other FB app permissions you have!
             'fields':os.getenv('FACEBOOK_FIELDS')
         },
+        'github':{
+            'client_id':os.getenv('GITHUB_CLIENT_ID'),
+            'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
+            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
+        },
 
         # Add other providers here if needed
         'google':{
