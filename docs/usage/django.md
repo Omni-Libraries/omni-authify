@@ -1,12 +1,13 @@
-# Django Integration for Facebook Login
+# Django Integration for Oauth2 authentication
 
-Easily integrate Facebook OAuth2 authentication into your Django project using Omni-Authify. This guide covers configuration, view creation, URL setup, and handling user authentication, providing a seamless experience for developers.
+Easily integrate OAuth2 authentication into your Django project using Omni-Authify. This guide covers configuration, view creation, URL setup, and handling user authentication, providing a seamless experience for developers.
 
 ---
 
 ## ⚙️ Configure Settings
 
-Add the Omni-Authify settings to your Django project settings to include Facebook and/or any other OAuth providers.
+Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub and/or any other OAuth 
+providers.
 
 ```python
 import os
@@ -20,9 +21,16 @@ OMNI_AUTHIFY = {
             'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
             'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
             'redirect_uri': os.getenv('FACEBOOK_REDIRECT_URI'),
-            'state': 'you-super-state', # optional
-            'scope': 'email,public_profile', # by default | add other FB app permissions you have!
-            'fields': 'id,name,email,picture',
+            'state': os.getenv('FACEBOOK_STATE'), # optional
+            'scope': os.getenv('FACEBOOK_SCOPE'), # by default | add other FB app permissions you have!
+            'fields': os.getenv('FACEBOOK_FIELDS'),
+        },
+        'github':{
+            'client_id':os.getenv('GITHUB_CLIENT_ID'),
+            'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
+            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'state': os.getenv('GITHUB_STATE'),
+            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
         },
                 
         # Add other providers here if needed
@@ -31,18 +39,13 @@ OMNI_AUTHIFY = {
         }
     }
 }
-
-# Note: email and public_profile permissions is granted by default
-#       if you want any other fields, you need to pass Facebook App Review. 
-#       You can get those user info when fields are set to email and public_info:
-#               User Info: {'id': '12212964..........', 'name': "Name Surname", 'email': 'user@example.com'}
 ```
 
 ---
 
 ## Django Views
 
-Learn how to create views to handle Facebook login and callback in your Django application.
+Learn how to create views to handle Facebook,GitHub login and callback in your Django application.
 
 ### 📝 Prerequisites
 
@@ -67,6 +70,7 @@ This version leverages the OmniAuthifyDjango helper class for a simpler implemen
 from django.http import HttpResponse
 from omni_authify.frameworks.django import OmniAuthifyDjango
 
+# ======== Facebook Login ========
 def facebook_login(request):
     auth = OmniAuthifyDjango(provider_name='facebook')
     return auth.login(request)
@@ -79,6 +83,18 @@ def facebook_callback(request):
      # Todo: Authenticate/login the user and save the user_info on your own!
     return HttpResponse(user_info)
 
+# ======== GitHub Login ========
+def github_login(request):
+    auth = OmniAuthifyDjango(provider_name='github')
+    return auth.login(request)
+
+def github_callback(request)
+    auth = OmniAuthifyDjango(provider_name='github')
+    user_info = auth.callback(request)
+    print(f"User info from Github: {user_info}")
+
+     # Todo: Authenticate/login the user and save the user_info on your own!
+    return HttpResponse(user_info)
 ```
 
 ## 🌐 Update URLs
@@ -92,8 +108,13 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # ======== Facebook Login ========
     path('facebook/login/', views.facebook_login, name='facebook_login'),
     path('facebook/callback/', views.facebook_callback, name='facebook_callback'),
+
+    # ======== GitHub Login ========
+    path('github/login/', views.github_login, name='github_login'),
+    path('github/callback/', views.github_callback, name='github_callback')
 ]
 ```
 
@@ -111,6 +132,7 @@ Create a template to display user information or login options.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
 </head>
 <body>
@@ -120,10 +142,13 @@ Create a template to display user information or login options.
         <p>Email: {{ user_info.email }}</p>
     {% else %}
         <h1>Welcome to Our Site</h1>
-        <a href="{% url 'facebook_login' %}">Login with Facebook</a>
+        <p>Please log in using one of the options below:</p>
+        <a href="{% url 'facebook_login' %}">Login with Facebook</a><br>
+        <a href="{% url 'github_login' %}">Login with GitHub</a>
     {% endif %}
 </body>
 </html>
+
 ```
 
 ---
@@ -131,10 +156,12 @@ Create a template to display user information or login options.
 ## ✅ Best Practices
 
 - **🔒 Use Environment Variables**: Always use environment variables to store important information like `client_id` and `client_secret`. This helps keep your credentials safe 🛡️.
-- **🔗 Match Redirect URI**: Make sure the `redirect_uri` is consistent between your Facebook App settings and your code to avoid errors 🚫.
+- **🔗 Match Redirect URI**: Make sure the `redirect_uri` is consistent between your Provider App settings and your code to avoid errors 🚫.
 - **⚠️ Error Handling**: Ensure all potential errors are handled to provide a smooth user experience 🐞.
 
 ---
 
-**Omni-Authify** makes adding Facebook authentication to your Django app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
+**Omni-Authify** makes adding Oauth2 authentication to your Django app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
+
+
 
