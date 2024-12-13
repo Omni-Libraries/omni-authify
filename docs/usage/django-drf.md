@@ -1,17 +1,21 @@
-# Django REST Framework (DRF) Integration for Facebook Login
+# Django REST Framework (DRF) Integration for Oauth2 authentication
 
-Easily integrate Facebook OAuth2 authentication into your Django REST Framework project using Omni-Authify. This guide will walk you through configuration, setting up API views, updating URLs, and best practices.
+Easily integrate multiple Providers Login into your Django REST Framework project using Omni-Authify. This guide 
+will walk you through configuration, setting up API views, updating URLs, and best practices.
 
 ---
 
 ## ⚙️ Configure Settings
 
-Add the Omni-Authify settings to your Django project settings to include Facebook and/or any other OAuth providers.
+Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub and/or any other OAuth 
+providers.
+
 ```python
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
 
 OMNI_AUTHIFY = {
     'PROVIDERS': {
@@ -19,9 +23,16 @@ OMNI_AUTHIFY = {
             'client_id': os.getenv('FACEBOOK_CLIENT_ID'),
             'client_secret': os.getenv('FACEBOOK_CLIENT_SECRET'),
             'redirect_uri': os.getenv('FACEBOOK_REDIRECT_URI'),
-            'state': 'you-super-state', # optional
-            'scope': 'email,public_profile', # by default | add other FB app permissions you have!
-            'fields': 'id,name,email,picture',
+            'state': os.getenv('FACEBOOK_STATE'), # optional
+            'scope': os.getenv('FACEBOOK_SCOPE'), # by default | add other FB app permissions you have!
+            'fields': os.getenv('FACEBOOK_FIELDS'),
+        },
+        'github':{
+            'client_id':os.getenv('GITHUB_CLIENT_ID'),
+            'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
+            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'state': os.getenv('GITHUB_STATE'),
+            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
         },
                 
         # Add other providers here if needed
@@ -30,18 +41,13 @@ OMNI_AUTHIFY = {
         }
     }
 }
-
-# Note: email and public_profile permissions is granted by default
-#       if you want any other fields, you need to pass Facebook App Review. 
-#       You can get those user info when fields are set to email and public_info:
-#               User Info: {'id': '12212964..........', 'name': "Name Surname", 'email': 'user@example.com'}
 ```
 
 ---
 
 ## DRF API Views
 
-Learn how to create API views to handle Facebook login and callback in your Django REST Framework application.
+Learn how to create API views to handle multiple Providers login and callback in your Django REST Framework application.
 
 ### 📝 Prerequisites
 
@@ -69,6 +75,7 @@ from rest_framework import status
 
 from omni_authify.frameworks.drf import OmniAuthifyDRF
 
+# ======== Facebook Login ========
 class FacebookLoginAPIView(APIView):
     def get(self, request):
         auth = OmniAuthifyDRF(provider_name='facebook')
@@ -84,6 +91,31 @@ class FacebookCallbackAPIView(APIView):
         try:
             auth = OmniAuthifyDRF(provider_name='facebook')
             user_info = auth.get_user_info(code)
+            print(f"User Info: {user_info}")
+            
+            # Todo: Authenticate/login the user and save the user_info on your own! or make auto_authenticate True
+            return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# ======== GitHub Login ========
+class GitHubLoginAPIView(APIView):
+    def get(self, request):
+        auth = OmniAuthifyDRF(provider_name='github')
+        auth_url = auth.get_auth_url()
+        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
+
+class GitHubCallbackAPIView(APIView):
+    def get(self, request):
+        code = request.GET.get('code')
+        if not code:
+            return Response({'error': 'No code provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            auth = OmniAuthifyDRF(provider_name='github')
+            user_info = auth.get_user_info(code)
+            print(f"User Info: {user_info}")
+            
             # Todo: Authenticate/login the user and save the user_info on your own! or make auto_authenticate True
             return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
@@ -100,11 +132,21 @@ Add the login and callback views to your app's **urls.py** file:
 # urls.py
 
 from django.urls import path
-from .views import FacebookLoginAPIView, FacebookCallbackAPIView
+from .views import (
+    FacebookLoginAPIView, FacebookCallbackAPIView,
+    GitHubLoginAPIView, GitHubCallbackAPIView
+
+)
 
 urlpatterns = [
+    # ======== Facebook Login ========
     path('facebook/login/', FacebookLoginAPIView.as_view(), name='facebook_login'),
     path('facebook/callback/', FacebookCallbackAPIView.as_view(), name='facebook_callback'),
+  
+    # ======== GitHub Login ========
+    path('github/login/', GitHubLoginAPIView.as_view(), name='github_login'),
+    path('github/callback/', GitHubCallbackAPIView.as_view(), name='github_callback'),
+  
 ]
 ```
 
@@ -113,9 +155,10 @@ urlpatterns = [
 ## ✅ Best Practices
 
 - **🔒 Use Environment Variables**: Always use environment variables to store important information like `client_id` and `client_secret`. This helps keep your credentials safe 🛡️.
-- **🔗 Match Redirect URI**: Make sure the `redirect_uri` is consistent between your Facebook App settings and your code to avoid errors 🚫.
+- **🔗 Match Redirect URI**: Make sure the `redirect_uri` is consistent between your Provider App settings and your code to avoid errors 🚫.
 
 ---
 
-**Omni-Authify** makes adding Facebook authentication to your Django REST Framework app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
+**Omni-Authify** makes adding Provider authentication to your Django REST Framework app straightforward and secure. 
+Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
 
