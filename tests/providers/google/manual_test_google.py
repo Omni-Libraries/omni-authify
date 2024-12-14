@@ -12,12 +12,15 @@ sys.path.insert(0, os.path.abspath(BASE_DIR))
 import webbrowser
 
 from omni_authify.providers.google import Google
-from omni_authify import settings
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-CLIENT_ID = settings.google_client_id
-CLIENT_SECRET = settings.google_client_secret
-REDIRECT_URI = settings.google_redirect_uri
+CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 SCOPE = "openid email profile"
 
 provider = Google(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI, scope=SCOPE)

@@ -8,13 +8,13 @@ except ImportError as e:
     raise ImportError("Django Rest Framework is not installed. Install it using 'pip install omni-authify[drf]'") \
         from e
 
-from omni_authify import Facebook, Google
+from omni_authify.core.oauth import get_provider
 
 
 class OmniAuthifyDRF:
     def __init__(self, provider_name):
         """
-        Retrieve provider settings from Django settings
+        Retrieve provider settings from Django-rest framework settings
         :param provider_name: The name of the provider such as Facebook or Twitter
         """
 
@@ -26,37 +26,9 @@ class OmniAuthifyDRF:
         self.fields = provider_settings.get('fields')
         self.scope = provider_settings.get('scope')
         self.state = provider_settings.get('state')
-        self.provider = self.get_provider(provider_name, provider_settings)
+        self.provider = get_provider(provider_name, provider_settings)
 
-    def get_provider(self, provider_name, provider_settings):
-        match provider_name:
-            case 'facebook':
-                return Facebook(
-                    client_id=provider_settings.get('client_id'),
-                    client_secret=provider_settings.get('client_secret'),
-                    redirect_uri=provider_settings.get('redirect_uri'),
-                    scope=provider_settings.get('scope'),
-                    fields=provider_settings.get('fields'),
-                )
-
-            case 'google':
-                return Google(
-                    client_id=provider_settings.get('client_id'),
-                    client_secret=provider_settings.get('client_secret'),
-                    redirect_uri=provider_settings.get('redirect_uri'),
-                    scope=provider_settings.get('scope', 'openid email profile'),
-            
-                )
-            # case 'twitter':
-            #     return twitter(
-            #
-            #     )
-            #
-            # # add other providers as they get ready
-            case _:
-                return f"Provider '{provider_name}' is not implemented."
-
-    def get_auth_url(self, request, scope=None):
+    def get_auth_url(self, scope=None):
         """
         Generate the authorization URL
         :return:

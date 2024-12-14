@@ -20,11 +20,12 @@ class Google(BaseOAuth2Provider):
                 client_id (str): The client ID provided by Google.
                 client_secret (str): The client secret provided by Google.
                 redirect_uri (str): The URI to redirect to after authentication.
+                scope (str, optional): The scope of access requested. Defaults to "openid email profile".
         """
         super().__init__(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, fields=["id"])
         
         
-    def get_authorization_url(self, state=None, scope=None, *args, **kwargs):
+    def get_authorization_url(self, state=None, scope=None):
         """ 
         Generate the authorization URL for Google OAuth2.
 
@@ -42,11 +43,11 @@ class Google(BaseOAuth2Provider):
         return f"{self.AUTHORIZE_URL}?{urlencode(params)}"
 
 
-    def get_access_token(self, *args, **kwargs) -> str:
+    def get_access_token(self) -> str:
         return super().get_access_token()
 
 
-    def get_user_profile(self, access_token: str, *args, **kwargs) -> dict:
+    def get_user_profile(self, access_token: str) -> dict:
         """
         Fetch user profile information from Google.
 

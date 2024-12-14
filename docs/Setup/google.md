@@ -16,12 +16,32 @@ To use Google OAuth2 in your Django REST Framework app, you need to set up a Goo
 1. Click on **Select project**
 2. Create a new project or select an existing one.
 
+<p>
+  <img src="../images/google/step-2/1.jpg" alt="Image 1" width="400" height="250">
+  <img src="../images/google/step-2/2.jpg" alt="Image 2" width="400" height="250">
+<p>
+<p>
+  <img src="../images/google/step-2/3.jpg" alt="Image 3" width="400" height="250">
+  <img src="../images/google/step-2/4.jpg" alt="Image 4" width="400" height="250">
+<p>
+
 ### Step 3: Create Google App
 1. Click on the navigation menu in the top right corner.
 2. Select **APIs & Services**.
-3. Go to **Oauth consent screen** section.
+3. Go to **OAuth consent screen** section.
 4. Click on **CREATE**.
 5. Fill in the required information and click on **SAVE AND CONTINUE** several times until the application is created.
+
+<p>
+  <img src="../images/google/step-3/1.jpg" alt="Image 1" width="400" height="250">
+  <img src="../images/google/step-3/2.jpg" alt="Image 2" width="400" height="250">
+<p>
+<p>
+  <img src="../images/google/step-3/3.jpg" alt="Image 3" width="400" height="250">
+  <img src="../images/google/step-3/4.jpg" alt="Image 4" width="400" height="250">
+<p>
+  <img src="../images/google/step-3/5.jpg" alt="Image 5" width="805" height="400"> 
+<p>
 
 ### Step 4: Create Credentials
 1. Go to the **Credentials** section.
@@ -31,11 +51,31 @@ To use Google OAuth2 in your Django REST Framework app, you need to set up a Goo
 5. After you have filled in the required fields, click **CREATE**.
 6. After you have created it, you should open a window with your Client ID and Client secret. Make sure to store these securely.
 
+<p>
+  <img src="../images/google/step-4/1.jpg" alt="Image 1" width="400" height="250">
+  <img src="../images/google/step-4/2.jpg" alt="Image 2" width="400" height="250">
+<p>
+<p>
+  <img src="../images/google/step-4/3.jpg" alt="Image 3" width="400" height="250">
+  <img src="../images/google/step-4/4.jpg" alt="Image 4" width="400" height="250">
+<p>
+  <img src="../images/google/step-4/5.jpg" alt="Image 5" width="805" height="400"> 
+<p>
+
 ### Step 5: OAuth 2.0 Configuration
 1. Go to [Google Developer](https://developers.google.com/oauthplayground/).
 2. Click on **OAuth 2.0 Configuration** (gear in the upper right corner).
 3. Check the box for **Use your own OAuth credentials**.
 4. In the **OAuth Client ID:** field, enter your (`client_id`). In the **OAuth Client Secret:** field, enter the (`client_secret`) and click **Close**
+
+<p>
+  <img src="../images/google/step-5/1.jpg" alt="Image 1" width="400" height="250">
+  <img src="../images/google/step-5/2.jpg" alt="Image 2" width="400" height="250">
+<p>
+<p>
+  <img src="../images/google/step-5/3.jpg" alt="Image 3" width="805" height="400">
+<p>
+
 
 ### Step 6: Store Credentials Securely
 Add the following to your `.env` file:
@@ -144,3 +184,9 @@ user_info = google_provider.get_authorization_url(scope=scope)
 ---
 
 Now you're ready to use Google for authenticating users in your app 🚀. Follow these steps and best practices to make sure everything runs securely 🔐 and smoothly ✨.
+### Final Result
+<p>
+  <img src="../images/google/final_result1.jpg" alt="Image 1" width="600" height="400">
+  <img src="../images/google/final_result2.jpg" alt="Image 2" width="600" height="400">
+<p>
+
