@@ -3,7 +3,7 @@ name: Publish Python Package
 on:
   push:
     tags:
-      - 'v*.*.*'  # Trigger only on new version tags
+      - 'v*.*.*'
 
 jobs:
   publish:
@@ -11,39 +11,54 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      id-token: write
       contents: read
+      attestations: write
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      # Step 1: Clean Dist Directory Before Build
+      - name: Clean Dist Directory Before Build
+        run: |
+          rm -rf dist/*
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.8'
+      # Step 2: Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Clean Dist Directory Before Build
-      run: |
-        rm -rf dist
+      # Step 3: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
 
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+      # Step 4: Install Dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
 
-    - name: Build Package
-      run: |
-        python setup.py sdist bdist_wheel
+      # Step 5: Build Package
+      - name: Build Package
+        run: |
+          python setup.py sdist bdist_wheel
 
-    - name: Publish Package to PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        twine upload dist/*
+      # Step 6: Attest Build Provenance
+      - name: Attest Build Provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'dist/*'
+          show-summary: true
 
-    # Step to clean up the dist directory after publishing to PyPI
-    - name: Clean Dist Directory After Release
-      if: success()
-      run: |
-        rm -rf dist
+      # Step 7: Publish Package to PyPI
+      - name: Publish Package to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          twine upload dist/*
+
+      # Step 8: Clean Dist Directory After Release
+      - name: Clean Dist Directory After Release
+        if: success()
+        run: |
+          rm -rf dist/*
