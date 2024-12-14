@@ -167,3 +167,168 @@ urlpatterns = [
 
 **Omni-Authify** makes adding Facebook authentication to your Django REST Framework app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
 
+
+
+# Django REST Framework (DRF) Integration for Google Login
+
+Easily integrate Google OAuth2 authentication into your Django REST Framework project using Omni-Authify. This guide will walk you through configuration, setting up API views, updating URLs, and best practices.
+
+---
+
+## ⚙️ Configure Settings
+
+Add the Omni-Authify settings to your Django project settings to include Google and/or any other OAuth providers.
+
+```python
+import os
+
+OMNI_AUTHIFY = {      
+    'PROVIDERS': {
+        'google': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri': '🌐http://localhost:8000/google/callback',
+            'state': 'openid email profile', # optional
+        },
+              
+        # Add other providers here if needed
+        'facebook': {
+            # Coming....
+        }
+    }
+}
+```
+
+---
+
+## DRF API Views
+
+Learn how to create API views to handle Google login and callback in your Django REST Framework application.
+
+### 📝 Prerequisites
+
+- **Installation**: Install Omni-Authify with Django REST Framework support using the following command:
+
+  ```bash
+  pip install omni-authify[drf]
+  ```
+
+- **Django 2.2 or higher**
+- **Django REST Framework installed**
+- Omni-Authify installed and configured (see [Installation Guide](installation.md))
+
+### 🚀 Setting Up API Views
+
+Create API views to handle the login and callback processes.
+
+#### **views.py**
+
+```python
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from omni_authify.providers.google import Google
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class GoogleLoginAPIView(APIView):
+    def get(self, request):
+        # === Initialize the provider with environment variables ====
+        google_provider = Google(
+            client_id=os.getenv('GOOGLE_CLIENT_ID'),
+            client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+            redirect_uri=os.getenv('GOOGLE_REDIRECT_URI'),
+        )
+        # ==== Generate authorization URL and return it in the response ====
+        auth_url = google_provider.get_authorization_url()
+        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
+
+class GoogleCallbackAPIView(APIView):
+    def get(self, request):
+        access_token = request.query_params.get("access_token")
+
+        if not access_token:
+            return Response({"error": "Access token is required"}, status=400)
+        
+        try:
+            # ==== Initialize the provider with environment variables ====
+            google_provider = Google(
+                client_id=os.getenv('GOOGLE_CLIENT_ID'),
+                client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+                redirect_uri=os.getenv('GOOGLE_REDIRECT_URI'),
+            )
+            # ==== Fetch user profile information ====
+            user_info = google_provider.get_user_profile(access_token)
+            # TODO: Authenticate the user and return a token
+            return Response({'user_info': user_info}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+```
+
+---
+
+### 🔁 Alternative Implementation
+
+#### **views.py (Alternative Approach)**
+
+This version uses the OmniAuthifyDRF helper class for an easier implementation.
+
+```python
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from omni_authify.frameworks.drf import OmniAuthifyDRF
+
+class GoogleLoginAPIView(APIView):
+    def get(self, request):
+        auth = OmniAuthifyDRF(provider_name='google')
+        auth_url = auth.get_authorization_url()
+        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
+
+class GoogleCallbackAPIView(APIView):
+    def get(self, request):
+        access_token = request.GET.get('access_token')
+        if not access_token:
+            return Response({'error': 'No access_token'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            auth = OmniAuthifyDRF(provider_name='google')
+            user_info = auth.get_user_info(access_token)
+            # Todo: Authenticate/login the user and save the user_info on your own! or make auto_authenticate True
+            return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+```
+
+---
+
+## 🌐 Update URLs
+
+Add the login and callback views to your app's **urls.py** file:
+
+```python
+# urls.py
+
+from django.urls import path
+from .views import GoogleLoginAPIView, GoogleCallbackAPIView
+
+urlpatterns = [
+    path('google/login/', GoogleLoginAPIView.as_view(), name='google_login'),
+    path('google/callback/', GoogleCallbackAPIView.as_view(), name='google_callback'),
+]
+```
+
+---
+
+## ✅ Best Practices
+
+- **🔒 Use Environment Variables**: Always use environment variables to store important information like `client_id` and `client_secret`. This helps keep your credentials safe 🛡️.
+- **🔗 Match Redirect URI**: Make sure the `redirect_uri` is consistent between your Google App settings and your code to avoid errors 🚫.
+
+---
+
+**Omni-Authify** makes adding Google authentication to your Django REST Framework app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨

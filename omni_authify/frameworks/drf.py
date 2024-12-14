@@ -42,8 +42,9 @@ class OmniAuthifyDRF:
             case 'google':
                 return Google(
                     client_id=provider_settings.get('client_id'),
+                    client_secret=provider_settings.get('client_secret'),
                     redirect_uri=provider_settings.get('redirect_uri'),
-                    scope=provider_settings.get('scope', 'openid%20email%20profile'),
+                    scope=provider_settings.get('scope', 'openid email profile'),
             
                 )
             # case 'twitter':
