@@ -12,13 +12,9 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      # check for updates at 9am UTC
-      time: "09:00"
-    # Raise pull requests for version updates
-    # to pip against the `develop` branch
-    target-branch: "develop"
+      time: "09:00" # check for updates at 9am UTC
+    target-branch: "develop" # Raise pull requests for version updates to pip against the `develop` branch
     allow:
-      # Allow only direct updates for
       - dependency-name: "django*"
         dependency-type: "direct" # Allow only direct updates for Django and any packages starting "django"
       - dependency-name: "djangorestframework*"
@@ -37,17 +33,8 @@ updates:
       - "dependencies"
       - "omni-authify"
     pull-request-branch-name:
-      # Separate sections of the branch name with a hyphen
-      # for example, `dependabot-npm_and_yarn-next_js-acorn-6.4.1`
       separator: "-"
-      prefix: "dependabot"
-      include-ecosystem: true # Include the package ecosystem in branch names
-    rebase-strategy: "auto"
+    rebase-strategy: "auto" # Automatically rebase PRs
     reviewers:
       - "Mukhsin0508"
     versioning-strategy: increase-if-necessary
-
-      
-
-
-    
