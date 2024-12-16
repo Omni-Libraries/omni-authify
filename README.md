@@ -18,7 +18,11 @@
     <a href="https://pypi.org/project/omni-authify/">  
         <img src="https://img.shields.io/pypi/dm/omni-authify" alt="PyPI Downloads"/>
     </a>
+    <a href="https://pepy.tech/project/omni-authify">
+        <img src="https://static.pepy.tech/personalized-badge/omni-authify?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads" alt="Total Downloads"/>
+    </a>
 </p>
+
 
 
 ---
