@@ -32,9 +32,16 @@ OMNI_AUTHIFY = {
             'state': os.getenv('GITHUB_STATE'),
             'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
         },
+        'google': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('GOOGLE_REDIRECT_URI'),
+            'state': os.getenv('GOOGLE_STATE_URI'), # optional
+            'scope': os.getenv('GOOGLE_SCOPE_URI'), # by default
+        },
                 
         # Add other providers here if needed
-        'google': {
+        'telegram': {
             # Coming....
         }
     }
@@ -95,6 +102,19 @@ def github_callback(request)
 
      # Todo: Authenticate/login the user and save the user_info on your own!
     return HttpResponse(user_info)
+
+# ======== Google Login ========
+def google_login(request):
+    auth = OmniAuthifyDjango(provider_name='google')
+    return auth.login(request)
+
+def google_callback(request)
+    auth = OmniAuthifyDjango(provider_name='google')
+    user_info = auth.callback(request)
+    print(f"User info from Github: {user_info}")
+
+     # Todo: Authenticate/login the user and save the user_info on your own!
+    return HttpResponse(user_info)
 ```
 
 ## 🌐 Update URLs
@@ -113,6 +133,10 @@ urlpatterns = [
     path('facebook/callback/', views.facebook_callback, name='facebook_callback'),
 
     # ======== GitHub Login ========
+    path('github/login/', views.github_login, name='github_login'),
+    path('github/callback/', views.github_callback, name='github_callback')
+
+    # ======== Google Login ========
     path('github/login/', views.github_login, name='github_login'),
     path('github/callback/', views.github_callback, name='github_callback')
 ]
@@ -145,6 +169,7 @@ Create a template to display user information or login options.
         <p>Please log in using one of the options below:</p>
         <a href="{% url 'facebook_login' %}">Login with Facebook</a><br>
         <a href="{% url 'github_login' %}">Login with GitHub</a>
+        <a href="{% url 'google_login' %}">Login with Google</a>
     {% endif %}
 </body>
 </html>
@@ -162,6 +187,3 @@ Create a template to display user information or login options.
 ---
 
 **Omni-Authify** makes adding Oauth2 authentication to your Django app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
-
-
-
