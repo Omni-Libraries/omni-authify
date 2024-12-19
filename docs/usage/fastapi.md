@@ -33,6 +33,11 @@ GOOGLE_REDIRECT_URI=https://localhost:8000/google/callback
 GOOGLE_STATE=your-strong-state
 GOOGLE_SCOPES='openid profile email https://www.googleapis.com/auth/contacts.readonly' # Don't seperate the fields with commas
 
+LINKEDIN_CLIENT_ID=your-linkedin-client-id
+LINKEDIN_CLIENT_SECRET=your-linkedin-client-id
+LINKEDIN_REDIRECT_URI=http://localhost:8000/linkedin/callback
+LINKEDIN_SCOPE=openid,profile,w_member_social,email
+
 ```
 Go and take a look at the Providers SetUP Guide to get Provider related credentials!
 - [Supported Providers and Frameworks](providers.md)
@@ -97,16 +102,16 @@ def facebook_callback(request: Request):
 
 # ======== GitHub Login ========
 @app.get("/github/login")
-def facebook_login():
+def github_login():
     try:
         auth = OmniAuthifyFastAPI(provider_name="github")
         auth_url = auth.get_auth_url()
         return RedirectResponse(auth_url)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error initiating Facebook login: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error initiating GitHub login: {str(e)}")
 
 @app.get("/github/callback")
-def facebook_callback(request: Request):
+def github_callback(request: Request):
     code = request.query_params.get("code")
     if not code:
         raise HTTPException(status_code=400, detail="No code provided")
@@ -124,22 +129,22 @@ def facebook_callback(request: Request):
 
 # ======== Google Login ========
 @app.get("/google/login")
-def facebook_login():
+def google_login():
     try:
-        auth = OmniAuthifyFastAPI(provider_name="github")
+        auth = OmniAuthifyFastAPI(provider_name="google")
         auth_url = auth.get_auth_url()
         return RedirectResponse(auth_url)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error initiating Google login: {str(e)}")
 
 @app.get("/google/callback")
-def facebook_callback(request: Request):
+def google_callback(request: Request):
     code = request.query_params.get("code")
     if not code:
         raise HTTPException(status_code=400, detail="No code provided")
 
     try:
-        auth = OmniAuthifyFastAPI(provider_name="github")
+        auth = OmniAuthifyFastAPI(provider_name="google")
         user_info = auth.get_user_info(code)
         print(f"User Info: {user_info}")
         
@@ -147,6 +152,33 @@ def facebook_callback(request: Request):
         return {"message": "User authenticated successfully", "user_info": user_info}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing Google callback: {str(e)}")
+
+
+# ======== LinkedIn Login ========
+@app.get("/linkedin/login")
+def linkedin_login():
+    try:
+        auth = OmniAuthifyFastAPI(provider_name="linkedin")
+        auth_url = auth.get_auth_url()
+        return RedirectResponse(auth_url)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error initiating LinkedIn login: {str(e)}")
+
+@app.get("/google/callback")
+def linkedin_callback(request: Request):
+    code = request.query_params.get("code")
+    if not code:
+        raise HTTPException(status_code=400, detail="No code provided")
+
+    try:
+        auth = OmniAuthifyFastAPI(provider_name="linkedin")
+        user_info = auth.get_user_info(code)
+        print(f"User Info: {user_info}")
+        
+        # TODO: Authenticate/login the user and save the user_info
+        return {"message": "User authenticated successfully", "user_info": user_info}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing LinkedIn callback: {str(e)}")
 ```
 
 ---

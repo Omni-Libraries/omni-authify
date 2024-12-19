@@ -2,6 +2,25 @@
 
 The `Facebook` provider lets you sign in 🔓 users using their Facebook accounts through OAuth2.
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant App
+    participant Facebook
+    
+    User->>App: 1. Click Login
+    App->>Facebook: 2. Request Authorization
+    User->>Facebook: 3. Enter Facebook Login
+    Facebook->>User: 4. Show Permissions
+    User->>Facebook: 5. Allow/Deny
+    Facebook->>App: 6. Send Auth Code
+    App->>Facebook: 7. Exchange Code
+    Facebook->>App: 8. Send Access Token
+    App->>Facebook: 9. Request User Data
+    Facebook->>App: 10. Return Profile, Email, etc
+    App->>User: 11. Login Success!
+```
+
 ---
 
 ## 🔧 Facebook App Setup Guide

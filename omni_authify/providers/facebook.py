@@ -80,7 +80,7 @@ class Facebook(BaseOAuth2Provider):
         Returns:
             dict: The user profile data.
         """
-        params = {"access_token":access_token, "fields":fields, }
+        params = {"access_token":access_token, "fields":fields,}
         response = requests.get(self.PROFILE_URL, params=params)
         response.raise_for_status()
         return response.json()
