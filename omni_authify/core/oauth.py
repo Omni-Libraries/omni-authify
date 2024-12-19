@@ -1,4 +1,4 @@
-from omni_authify import Facebook, GitHub
+from omni_authify import Facebook, GitHub, Google
 
 def get_provider(provider_name, provider_settings):
     match provider_name:
@@ -17,10 +17,14 @@ def get_provider(provider_name, provider_settings):
                 redirect_uri=provider_settings.get('redirect_uri'),
                 scope=provider_settings.get('scope'),
             )
+        case 'google':
+                return Google(
+                    client_id=provider_settings.get('client_id'),
+                    client_secret=provider_settings.get('client_secret'),
+                    redirect_uri=provider_settings.get('redirect_uri'),
+                    scope=provider_settings.get('scopes'),
+                )
 
-        # case 'google':
-        #     return Google(
-        #
         #     )
         # case 'twitter':
         #     return twitter(

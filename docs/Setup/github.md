@@ -6,13 +6,14 @@ The `GitHub` provider lets you sign in 🔓 users using their GitHub accounts th
 
 ## 🔧 GitHub App Setup Guide
 
-To use GitHub OAuth2 in your app, you need to set up a Facebook App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
+To use GitHub OAuth2 in your app, you need to set up a GitHub App. Here's a step-by-step guide to obtain the necessary 
+credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
 
 ### Step 1: Register a new OAuth app
 1. #### Log in with your GitHub account or create one if you don't have it.
 2. #### Go to [GitHub Developer Settings](https://github.com/settings/applications/new).
 3. #### Click on New OAuth app.
-**![New OAuth App](../images/github/new_auth_app.png)**
+**![New OAuth App](../20135images/github/new_auth_app.png)**
 
 ### Step 2: Configure OAuth Settings
 1. #### Enter App name and Authorization callback URL

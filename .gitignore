@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 .idea
+.vscode
 venv-authify
 .test_pypirc
 .pypirc
@@ -31,6 +32,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+google.json
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -56,6 +58,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+omni_authify/settings.py
+
 
 # Translations
 *.mo

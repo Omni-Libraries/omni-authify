@@ -7,7 +7,8 @@ will walk you through configuration, setting up API views, updating URLs, and be
 
 ## ⚙️ Configure Settings
 
-Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub and/or any other OAuth 
+Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub, Google and/or any other 
+OAuth 
 providers.
 
 ```python
@@ -15,7 +16,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 
 OMNI_AUTHIFY = {
     'PROVIDERS': {
@@ -30,13 +30,20 @@ OMNI_AUTHIFY = {
         'github':{
             'client_id':os.getenv('GITHUB_CLIENT_ID'),
             'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
-            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'redirect_uri':os.getenv('GITHUB_REDIRECT_URI'),
             'state': os.getenv('GITHUB_STATE'),
-            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
+            'scope':os.getenv('GITHUB_SCOPE'),
+        },
+        'google': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('GOOGLE_REDIRECT_URI'),
+            'state': os.getenv('GOOGLE_STATE'), # optional
+            'scope': os.getenv('GOOGLE_SCOPES'),
         },
                 
         # Add other providers here if needed
-        'google': {
+        'telegram': {
             # Coming....
         }
     }
@@ -120,6 +127,29 @@ class GitHubCallbackAPIView(APIView):
             return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# ======== Google Login ========
+class GoogleLoginAPIView(APIView):
+    def get(self, request):
+        auth = OmniAuthifyDRF(provider_name='google')
+        auth_url = auth.get_auth_url()
+        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
+
+class GoogleCallbackAPIView(APIView):
+    def get(self, request):
+        code = request.GET.get('code')
+        if not code:
+            return Response({'error': 'No code provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            auth = OmniAuthifyDRF(provider_name='google')
+            user_info = auth.get_user_info(code)
+            print(f"User Info: {user_info}")
+            
+            # Todo: Authenticate/login the user and save the user_info on your own! or make auto_authenticate True
+            return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 ```
 
 ---
@@ -134,8 +164,8 @@ Add the login and callback views to your app's **urls.py** file:
 from django.urls import path
 from .views import (
     FacebookLoginAPIView, FacebookCallbackAPIView,
-    GitHubLoginAPIView, GitHubCallbackAPIView
-
+    GitHubLoginAPIView, GitHubCallbackAPIView,
+    GoogleLoginAPIView, GoogleCallbackAPIView,
 )
 
 urlpatterns = [
@@ -146,6 +176,10 @@ urlpatterns = [
     # ======== GitHub Login ========
     path('github/login/', GitHubLoginAPIView.as_view(), name='github_login'),
     path('github/callback/', GitHubCallbackAPIView.as_view(), name='github_callback'),
+
+    # ======== Google Login ========
+    path('google/login/', GoogleLoginAPIView.as_view(), name='google_login'),
+    path('google/callback/', GoogleCallbackAPIView.as_view(), name='google_callback'),
   
 ]
 ```
@@ -161,4 +195,3 @@ urlpatterns = [
 
 **Omni-Authify** makes adding Provider authentication to your Django REST Framework app straightforward and secure. 
 Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
-

@@ -6,8 +6,8 @@ Easily integrate OAuth2 authentication into your Django project using Omni-Authi
 
 ## ⚙️ Configure Settings
 
-Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub and/or any other OAuth 
-providers.
+Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub, Google and/or any other 
+OAuth providers.
 
 ```python
 import os
@@ -28,13 +28,20 @@ OMNI_AUTHIFY = {
         'github':{
             'client_id':os.getenv('GITHUB_CLIENT_ID'),
             'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
-            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'redirect_uri':os.getenv('GITHUB_REDIRECT_URI'),
             'state': os.getenv('GITHUB_STATE'),
-            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
+            'scope':os.getenv('GITHUB_SCOPE'),
+        },
+        'google': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('GOOGLE_REDIRECT_URI'),
+            'state': os.getenv('GOOGLE_STATE'), # optional
+            'scope': os.getenv('GOOGLE_SCOPES'),
         },
                 
         # Add other providers here if needed
-        'google': {
+        'telegram': {
             # Coming....
         }
     }
@@ -45,7 +52,7 @@ OMNI_AUTHIFY = {
 
 ## Django Views
 
-Learn how to create views to handle Facebook,GitHub login and callback in your Django application.
+Learn how to create views to handle Facebook,GitHub,Google login and callback in your Django application.
 
 ### 📝 Prerequisites
 
@@ -95,6 +102,19 @@ def github_callback(request)
 
      # Todo: Authenticate/login the user and save the user_info on your own!
     return HttpResponse(user_info)
+
+# ======== Google Login ========
+def google_login(request):
+    auth = OmniAuthifyDjango(provider_name='google')
+    return auth.login(request)
+
+def google_callback(request):
+    auth = OmniAuthifyDjango(provider_name='google')
+    user_info = auth.callback(request)
+    print(f"User info from Github: {user_info}")
+
+     # Todo: Authenticate/login the user and save the user_info on your own!
+    return HttpResponse(user_info)
 ```
 
 ## 🌐 Update URLs
@@ -115,6 +135,10 @@ urlpatterns = [
     # ======== GitHub Login ========
     path('github/login/', views.github_login, name='github_login'),
     path('github/callback/', views.github_callback, name='github_callback')
+
+    # ======== Google Login ========
+    path('google/login/', views.google_login, name='google_login'),
+    path('google/callback/', views.google_callback, name='google_callback')
 ]
 ```
 
@@ -145,6 +169,7 @@ Create a template to display user information or login options.
         <p>Please log in using one of the options below:</p>
         <a href="{% url 'facebook_login' %}">Login with Facebook</a><br>
         <a href="{% url 'github_login' %}">Login with GitHub</a>
+        <a href="{% url 'google_login' %}">Login with Google</a>
     {% endif %}
 </body>
 </html>
@@ -162,6 +187,3 @@ Create a template to display user information or login options.
 ---
 
 **Omni-Authify** makes adding Oauth2 authentication to your Django app straightforward and secure. Follow these steps and best practices to provide your users with a seamless login experience. 🚀✨
-
-
-

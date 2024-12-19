@@ -1,0 +1,40 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    assignees:
+      - "Mukhsin0508"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "09:00" # check for updates at 9am UTC
+    target-branch: "develop" # Raise pull requests for version updates to pip against the `develop` branch
+    allow:
+      - dependency-name: "django*"
+        dependency-type: "direct" # Allow only direct updates for Django and any packages starting "django"
+      - dependency-name: "djangorestframework*"
+        dependency-type: "direct" # Django Rest Framework and any packages starting "djangorestframework"
+      - dependency-name: "fastapi*"
+        dependency-type: "direct" # FastAPI and any packages starting "fastapi"
+      - dependency-name: "flask"
+        dependency-type: "direct" # Flask and any packages starting "flask"
+      - dependency-name: "requests"
+        dependency-type: "direct" # Include requests library updates
+    commit-message:
+      prefix: "pip update"
+      prefix-development: "pip dev update"
+    labels:
+      - "pip"
+      - "dependencies"
+      - "omni-authify"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto" # Automatically rebase PRs
+    reviewers:
+      - "Mukhsin0508"
+    versioning-strategy: increase-if-necessary
