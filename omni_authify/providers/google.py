@@ -10,6 +10,7 @@ class Google(BaseOAuth2Provider):
     Google OAuth2 provider.
     """
     AUTHORIZE_URL: str = "https://accounts.google.com/o/oauth2/v2/auth"
+    TOKEN_URL: str = "https://oauth2.googleapis.com/token"
     PROFILE_URL: str = "https://www.googleapis.com/oauth2/v1/userinfo"
 
     def __init__(self, client_id, client_secret, redirect_uri, scope="openid email profile"):
@@ -35,7 +36,7 @@ class Google(BaseOAuth2Provider):
         params = {
             "client_id": self.client_id,
             "redirect_uri": self.redirect_uri,
-            "response_type": "token",
+            "response_type": "code",
             "scope": scope or self.scope,
         }
         if state:
@@ -43,8 +44,26 @@ class Google(BaseOAuth2Provider):
         return f"{self.AUTHORIZE_URL}?{urlencode(params)}"
 
 
-    def get_access_token(self) -> str:
-        return super().get_access_token()
+    def get_access_token(self, code: str) -> str:
+        """
+        Exchange the authorization code for an access token.
+
+        Args:
+            code (str): The authorization code received from the callback.
+
+        Returns:
+            str: The access token.
+        """
+        data = {
+            "code": code,
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "redirect_uri": self.redirect_uri,
+            "grant_type": "authorization_code",
+        }
+        response = requests.post(self.TOKEN_URL, data=data)
+        response.raise_for_status()
+        return response.json().get("access_token")
 
 
     def get_user_profile(self, access_token: str) -> dict:

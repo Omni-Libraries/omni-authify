@@ -140,7 +140,27 @@ def get_authorization_url(state=None):
 auth_url = google_provider.get_authorization_url(state='random_state_string')
 ```
 
-### 2. 📄 Get User Profile
+### 2. 🔓 Get Access Token
+This method uses the code from Facebook to get an access token 🔑.
+
+```python
+def get_access_token(code):
+    pass
+```
+
+**Parameters:**
+- `code` (str): The authorization code 🔢 you got from the callback URL.
+
+**Returns:**
+- `str`: The access token 🔑.
+
+**Example:**
+```python
+access_token = google_provider.get_access_token(code='authorization_code')
+```
+
+
+### 3. 📄 Get User Profile
 This method gets the user's profile information from Google.
 
 ```python
@@ -150,7 +170,7 @@ def get_user_profile(access_token):
 
 
 **Parameters:**
-- `access_token` (str): The access token 🔑 you got from `request.GET`.
+- `access_token` (str): The access token 🔑 you got from `get_access_token`.
 
 **Returns:**
 - `dict`: The user's profile information 📋.
