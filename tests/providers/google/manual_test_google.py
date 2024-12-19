@@ -1,39 +1,34 @@
-import sys
-import os
-
-from pathlib import Path
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
-print(BASE_DIR)
-sys.path.insert(0, os.path.abspath(BASE_DIR))
-
-
-import webbrowser
-
+from omni_authify import settings
 from omni_authify.providers.google import Google
 
-from dotenv import load_dotenv
+client_id = settings.google_client_id
+client_secret = settings.google_client_secret
+redirect_uri = settings.google_redirect_uri
+scope = settings.google_scopes
 
-load_dotenv()
+print(client_id, client_secret, redirect_uri, scope)
 
 
-CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
-SCOPE = "openid email profile"
+provider = Google(
+    client_id=client_id,
+    client_secret=client_secret,
+    redirect_uri=redirect_uri,
+    scope=scope
+)
 
-provider = Google(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI, scope=SCOPE)
+# ==== Step 1: Get the authorization URL ====
+auth_url = provider.get_authorization_url(state='google_test_state')
+print(f"Visit this URL to authorize: {auth_url}")
 
-try:
-    auth_url = provider.get_authorization_url(state="test")
-    print("Authorization URL:", auth_url)
-    
-    webbrowser.open(auth_url)
-    access_token = input("Input access token: ")
+# ==== Step 2: User authorizes and gets redirected to your redirect_uri with a 'code' parameter ====
+code = input("Enter the 'code' parameter from the URL you were redirected to: ")
 
-    profile = provider.get_user_profile(access_token)
-    print("Profile user:", profile)
-    
-except Exception as e:
-    print("Error:", e)
+# ==== Step 3: Exchange the code for an access token ====
+access_token = provider.get_access_token(code)
+print(f"Access Token: {access_token}")
+
+# ==== Step 5: Get the user's profile ====
+user_info = provider.get_user_profile(access_token, fields=scope)
+print(f"User Info: {user_info}")
+
+

@@ -21,14 +21,12 @@ OMNI_AUTHIFY = {
             'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
             'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
         },
-
         'google':{
             'client_id':os.getenv('GOOGLE_CLIENT_ID'),
             'client_secret':os.getenv('GOOGLE_CLIENT_SECRET'),
             'redirect_uri':os.getenv('GOOGLE_REDIRECT_URI'),
-            'state':os.getenv('FACEBOOK_STATE'), # optional
-            'scope':os.getenv('GOOGLE_SCOPE'), # by default 
-            'fields':os.getenv('GOOGLE_FIELDS'),
+            'state':os.getenv('GOOGLE_STATE'), # optional
+            'scope':os.getenv('GOOGLE_SCOPE')
         }
         # Add other providers here if needed
     }
