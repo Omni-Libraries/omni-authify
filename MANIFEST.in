@@ -19,7 +19,7 @@ exclude scripts/*
 exclude docs/Setup/*
 exclude docs/usage/*
 exclude docs/installation.md
-exclude omni_authify/core
+exclude omni_authify/core/exceptions.py
 exclude omni_authify/settings.py
 exclude docs/providers.md
 exclude CONTRIBUTING.md
