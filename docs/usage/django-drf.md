@@ -41,6 +41,12 @@ OMNI_AUTHIFY = {
             'state': os.getenv('GOOGLE_STATE'), # optional
             'scope': os.getenv('GOOGLE_SCOPES'),
         },
+        'linkedin': {
+            'client_id': os.getenv('LINKEDIN_CLIENT_ID'),
+            'client_secret': os.getenv('LINKEDIN_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('LINKEDIN_REDIRECT_URI'),
+            'scope': os.getenv('LINKEDIN_SCOPE'),
+        },
                 
         # Add other providers here if needed
         'telegram': {
@@ -150,6 +156,29 @@ class GoogleCallbackAPIView(APIView):
             return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# ======== LinkedIn Login ========
+class LinkedInLoginAPIView(APIView):
+    def get(self, request):
+        auth = OmniAuthifyDRF(provider_name='linkedin')
+        auth_url = auth.get_auth_url()
+        return Response({'auth_url': auth_url}, status=status.HTTP_200_OK)
+
+class LinkedInCallbackAPIView(APIView):
+    def get(self, request):
+        code = request.GET.get('code')
+        if not code:
+            return Response({'error': 'No code provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            auth = OmniAuthifyDRF(provider_name='linkedin')
+            user_info = auth.get_user_info(code)
+            print(f"User Info: {user_info}")
+            
+            # Todo: Authenticate/login the user and save the user_info on your own! or make auto_authenticate True
+            return Response({'message': 'User authenticated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 ```
 
 ---
@@ -166,6 +195,7 @@ from .views import (
     FacebookLoginAPIView, FacebookCallbackAPIView,
     GitHubLoginAPIView, GitHubCallbackAPIView,
     GoogleLoginAPIView, GoogleCallbackAPIView,
+    LinkedInLoginAPIView, LinkedInCallbackAPIView,
 )
 
 urlpatterns = [
@@ -180,6 +210,10 @@ urlpatterns = [
     # ======== Google Login ========
     path('google/login/', GoogleLoginAPIView.as_view(), name='google_login'),
     path('google/callback/', GoogleCallbackAPIView.as_view(), name='google_callback'),
+  
+    # ======== LinkedIn Login ========
+    path('linkedin/login/', LinkedInLoginAPIView.as_view(), name='linkedin_login'),
+    path('linkedin/callback/', LinkedInCallbackAPIView.as_view(), name='linkedin_callback'),
   
 ]
 ```
