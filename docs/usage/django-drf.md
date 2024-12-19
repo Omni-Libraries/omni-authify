@@ -7,7 +7,8 @@ will walk you through configuration, setting up API views, updating URLs, and be
 
 ## ⚙️ Configure Settings
 
-Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub and/or any other OAuth 
+Add the Omni-Authify settings to your Django project settings to include Facebook, GitHub, Google and/or any other 
+OAuth 
 providers.
 
 ```python
@@ -15,7 +16,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 
 OMNI_AUTHIFY = {
     'PROVIDERS': {
@@ -30,16 +30,16 @@ OMNI_AUTHIFY = {
         'github':{
             'client_id':os.getenv('GITHUB_CLIENT_ID'),
             'client_secret':os.getenv('GITHUB_CLIENT_SECRET'),
-            'redirect_uri':os.getenv('GITHUB_CLIENT_REDIRECT_URI'),
+            'redirect_uri':os.getenv('GITHUB_REDIRECT_URI'),
             'state': os.getenv('GITHUB_STATE'),
-            'scope':os.getenv('GITHUB_CLIENT_SCOPE'),
+            'scope':os.getenv('GITHUB_SCOPE'),
         },
         'google': {
             'client_id': os.getenv('GOOGLE_CLIENT_ID'),
             'client_secret': os.getenv('GOOGLE_CLIENT_SECRET'),
             'redirect_uri': os.getenv('GOOGLE_REDIRECT_URI'),
-            'state': os.getenv('GOOGLE_STATE_URI'), # optional
-            'scope': os.getenv('GOOGLE_SCOPE_URI'), # by default
+            'state': os.getenv('GOOGLE_STATE'), # optional
+            'scope': os.getenv('GOOGLE_SCOPES'),
         },
                 
         # Add other providers here if needed
@@ -164,8 +164,8 @@ Add the login and callback views to your app's **urls.py** file:
 from django.urls import path
 from .views import (
     FacebookLoginAPIView, FacebookCallbackAPIView,
-    GitHubLoginAPIView, GitHubCallbackAPIView
-
+    GitHubLoginAPIView, GitHubCallbackAPIView,
+    GoogleLoginAPIView, GoogleCallbackAPIView,
 )
 
 urlpatterns = [
