@@ -8,7 +8,7 @@ walk you through configuration, setting up API views, updating URLs, and best pr
 ## ⚙️ Configure .env file
 
 To use Omni-Authify in to your FastAPI project, You have to store provider-related credentials in an .env file to 
-include Facebook, GitHub and/or any other OAuth 
+include Facebook, GitHub, Google and/or any other OAuth 
 providers.
 
 ### **.env file**
@@ -26,6 +26,12 @@ GITHUB_CLIENT_ID=your-github-client-id
 GITHUB_CLIENT_SECRET=your-github-client-secret
 GITHUB_REDIRECT_URI=https://localhost:8000/github/callback
 GITHUB_SCOPE=user,repo
+
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_REDIRECT_URI=https://localhost:8000/google/callback
+GOOGLE_STATE=your-strong-state
+GOOGLE_SCOPES='openid profile email https://www.googleapis.com/auth/contacts.readonly' # Don't seperate the fields with commas
 
 ```
 Go and take a look at the Providers SetUP Guide to get Provider related credentials!
@@ -113,7 +119,34 @@ def facebook_callback(request: Request):
         # TODO: Authenticate/login the user and save the user_info
         return {"message": "User authenticated successfully", "user_info": user_info}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing Facebook callback: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error processing GitHub callback: {str(e)}")
+
+
+# ======== Google Login ========
+@app.get("/google/login")
+def facebook_login():
+    try:
+        auth = OmniAuthifyFastAPI(provider_name="github")
+        auth_url = auth.get_auth_url()
+        return RedirectResponse(auth_url)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error initiating Google login: {str(e)}")
+
+@app.get("/google/callback")
+def facebook_callback(request: Request):
+    code = request.query_params.get("code")
+    if not code:
+        raise HTTPException(status_code=400, detail="No code provided")
+
+    try:
+        auth = OmniAuthifyFastAPI(provider_name="github")
+        user_info = auth.get_user_info(code)
+        print(f"User Info: {user_info}")
+        
+        # TODO: Authenticate/login the user and save the user_info
+        return {"message": "User authenticated successfully", "user_info": user_info}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing Google callback: {str(e)}")
 ```
 
 ---
