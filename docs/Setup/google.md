@@ -101,9 +101,9 @@ To use Google OAuth2 in your Django REST Framework app, you need to set up a Goo
 
 **Add the following to your `.env` file:**
 ```env
-GOOGLE_CLIENT_ID=80699544681-93cmkgnpqg8jfi52ipmkc01s8u43mkk5.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
-GOOGLE_REDIRECT_URI=https://localhost:8000/google/callback
+GOOGLE_CLIENT_ID='🔑 your-google-client-id',
+GOOGLE_CLIENT_SECRET='🔒 your-google-client-secret',
+GOOGLE_REDIRECT_URI='🌐 your-google-redirect-uri',
 GOOGLE_SCOPES='openid profile email https://www.googleapis.com/auth/contacts.readonly' # Note: between scopes a leave whitespace
 ```
 **Use the `dotenv` package to load these variables in your project.**
