@@ -4,6 +4,9 @@ from .facebook import Facebook
 
 
 class Instagram(Facebook):
+    """
+    Instagram currently not supported.
+    """
     PROFILE_URL: str = "https://graph.instagram.com/me"
 
     def get_user_profile(self, access_token: str, fields: str) -> dict:

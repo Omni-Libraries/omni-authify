@@ -22,8 +22,9 @@ def get_provider(provider_name, provider_settings):
                     client_id=provider_settings.get('client_id'),
                     client_secret=provider_settings.get('client_secret'),
                     redirect_uri=provider_settings.get('redirect_uri'),
-                    scope=provider_settings.get('scope', 'openid email profile'),
+                    scope=provider_settings.get('scopes'),
                 )
+
         #     )
         # case 'twitter':
         #     return twitter(

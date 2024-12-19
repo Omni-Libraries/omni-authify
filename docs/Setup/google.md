@@ -3,6 +3,31 @@
 The `Google` provider lets you sign in 🔓 users using their Google accounts through OAuth2.
 
 ---
+## Go to Resources
+- **Start from here: [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2)**
+- **For a comprehensive list of Google API scopes, refer to the official Google documentation: [OAuth 2.0 Scopes for Google APIs](https://developers.google.com/identity/protocols/oauth2/scopes)**
+- **If your app's configuration has more than 10 domains, has a logo, or requests sensitive or restricted scopes, you will need to [submit for verification](https://support.google.com/cloud/answer/13463073?visit_id=638701880892240918-3305891983&rd=1)**
+
+## Overview
+The sequence diagram below illustrates the flow of obtaining and using an OAuth 2.0 token from Google to access Google APIs:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Your App
+    participant Google Servers
+    
+    User->>Your App: Request token
+    Your App->>Google Servers: User login & consent
+    Google Servers-->>Your App: Authorization code
+    Your App->>Google Servers: Exchange code for token
+    Google Servers-->>Your App: Token response
+    Your App->>Google Servers: Use token to call Google API
+```
+
+---
+
+---
 
 ## 🔧 Google App Setup Guide
 
@@ -62,35 +87,30 @@ To use Google OAuth2 in your Django REST Framework app, you need to set up a Goo
   <img src="../images/google/step-4/5.jpg" alt="Image 5" width="805" height="400"> 
 <p>
 
-### Step 5: OAuth 2.0 Configuration
-1. Go to [Google Developer](https://developers.google.com/oauthplayground/).
-2. Click on **OAuth 2.0 Configuration** (gear in the upper right corner).
-3. Check the box for **Use your own OAuth credentials**.
-4. In the **OAuth Client ID:** field, enter your (`client_id`). In the **OAuth Client Secret:** field, enter the (`client_secret`) and click **Close**
-
+### Step 5: Publish your App
+- **In order not to limit your Google Oauth2 app to only Test Users, you need to publish your app.**
+- **Once you set your app status as "In production", your app will be available to anyone with a Google Account.**
 <p>
-  <img src="../images/google/step-5/1.jpg" alt="Image 1" width="400" height="250">
-  <img src="../images/google/step-5/2.jpg" alt="Image 2" width="400" height="250">
-<p>
-<p>
-  <img src="../images/google/step-5/3.jpg" alt="Image 3" width="805" height="400">
-<p>
+  <img src="../images/google/step-5/publish.png" alt="Publish your App" width="805" height="400">
+</p>
 
 
 ### Step 6: Store Credentials Securely
-Add the following to your `.env` file:
-```env
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-GOOGLE_REDIRECT_URI=http://localhost:8000/google/callback/
-```
-Use the `dotenv` package to load these variables in your Django project.
 
+> **⚠️ Note:** It's best to store your Google App settings in a `.env` file for 🔐 security. You can access them in `settings.py` using `python-dotenv` or `environ`.
+
+**Add the following to your `.env` file:**
+```env
+GOOGLE_CLIENT_ID=80699544681-93cmkgnpqg8jfi52ipmkc01s8u43mkk5.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_REDIRECT_URI=https://localhost:8000/google/callback
+GOOGLE_SCOPES='openid profile email https://www.googleapis.com/auth/contacts.readonly' # Note: between scopes a leave whitespace
+```
+**Use the `dotenv` package to load these variables in your project.**
 
 
 ## 🚀 Getting Started
-
-First, import the needed 📦 class and set up your Google App ⚙️ settings:
+**First, import the needed 📦 class and set up your Google App ⚙️ settings:**
 
 ```python
 from omni_authify.providers import Google
@@ -100,17 +120,8 @@ google_provider = Google(
     client_id='🔑 your-google-client-id', 
     client_secret='🔒 your-google-client-secret',
     redirect_uri='🌐 your-google-redirect-uri',
-    scope='openid email profile' #optional
+    scope='openid profile email https://www.googleapis.com/auth/contacts.readonly'
 )
-```
-
-> **⚠️ Note:** It's best to store your Google App settings in a `.env` file for 🔐 security. You can access them in `settings.py` using `python-dotenv` or `environ`.
-
-**Example `.env` file:**
-```env
-GOOGLE_CLIENT_ID=🔑 your-google-client-id
-GOOGLE_CLIENT_SECRET=🔒 your-google-client-secret
-GOOGLE_REDIRECT_URI=http://localhost:8000/google/callback/
 ```
 
 ## ⚙️ Updating Settings
@@ -140,7 +151,26 @@ def get_authorization_url(state=None):
 auth_url = google_provider.get_authorization_url(state='random_state_string')
 ```
 
-### 2. 📄 Get User Profile
+### 2. 🔓 Get Access Token
+This method uses the code from GitHub to get an access token 🔑.
+
+```python
+def get_access_token(code):
+    pass
+```
+
+**Parameters:**
+- `code` (str): The authorization code 🔢 you got from the callback URL.
+
+**Returns:**
+- `str`: The access token 🔑.
+
+**Example:**
+```python
+access_token = provider.get_access_token(code='authorization_code')
+```
+
+### 3. 📄 Get User Profile
 This method gets the user's profile information from Google.
 
 ```python
@@ -166,11 +196,12 @@ user_info = google_provider.get_user_profile(access_token)
 
 You can choose which fields you want to get from the user's profile by changing the `scope` parameter.
 
-Without changing it, you will receive an openid, profile and email address (everything that can be taken).
+Without changing it, you will receive an openid, profile and email address (everything that can be taken if your 
+Google Cloud Project has enabled Google People API in the Google Cloud Console).
 
 **Example:**
 ```python
-fields = "openid email profile"
+scope = "openid email profile"
 user_info = google_provider.get_authorization_url(scope=scope)
 ```
 
@@ -186,7 +217,9 @@ user_info = google_provider.get_authorization_url(scope=scope)
 Now you're ready to use Google for authenticating users in your app 🚀. Follow these steps and best practices to make sure everything runs securely 🔐 and smoothly ✨.
 ### Final Result
 <p>
-  <img src="../images/google/final_result1.jpg" alt="Image 1" width="600" height="400">
-  <img src="../images/google/final_result2.jpg" alt="Image 2" width="600" height="400">
+  <img src="../images/google/img.png" alt="Image 3" width="400" height="235">
+  <img src="../images/google/img_1.png" alt="Image 4" width="500" height="250">
+<p>
+  <img src="../images/google/img_2.png" alt="Image 5" width="805" height="400"> 
 <p>
 
