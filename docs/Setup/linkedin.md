@@ -88,7 +88,7 @@ graph LR
 <p>
   <img src="../images/linkedin/step-4/img.png" alt="Auth Tab" width="400" height="250">
   <img src="../images/linkedin/step-4/scopes.png" alt="Scopes" width="400" height="250">
-  <img src="../images/linkedin/step-4/display_scopoes.png" alt="Display Scopes" width="800" height="500">
+  <img src="../images/linkedin/step-4/display_scopes.png" alt="Display Scopes" width="800" height="500">
 </p>
 
 > 🚨 **Important:** LinkedIn servers will only communicate with trusted URLs. Ensure your callback URL meets the following criteria:
