@@ -27,7 +27,14 @@ OMNI_AUTHIFY = {
             'redirect_uri':os.getenv('GOOGLE_REDIRECT_URI'),
             'state':os.getenv('GOOGLE_STATE'), # optional
             'scope':os.getenv('GOOGLE_SCOPE')
+        },
+        'linkedin':{
+            'client_id':os.getenv('LINKEDIN_CLIENT_ID'),
+            'client_secret':os.getenv('LINKEDIN_CLIENT_SECRET'),
+            'redirect_uri':os.getenv('LINKEDIN_REDIRECT_URI'),
+            'scope':os.getenv('LINKEDIN_SCOPE')
         }
+
         # Add other providers here if needed
     }
 }

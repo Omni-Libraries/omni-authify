@@ -1,4 +1,6 @@
 from omni_authify import Facebook, GitHub, Google
+from omni_authify.providers.linkedin import LinkedIn
+
 
 def get_provider(provider_name, provider_settings):
     match provider_name:
@@ -24,13 +26,18 @@ def get_provider(provider_name, provider_settings):
                     redirect_uri=provider_settings.get('redirect_uri'),
                     scope=provider_settings.get('scopes'),
                 )
+        case 'linkedin':
+            return LinkedIn(
+                client_id=provider_settings.get('client_id'),
+                client_secret=provider_settings.get('client_secret'),
+                redirect_uri=provider_settings.get('redirect_uri'),
+                scope=provider_settings.get('scope'),
+            )
 
         #     )
         # case 'twitter':
         #     return twitter(
-        #
         #     )
-        #
-        # # add other providers as they get ready
+
         case _:
             raise NotImplementedError(f"Provider '{provider_name}' is not implemented.")

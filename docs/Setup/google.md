@@ -27,11 +27,9 @@ sequenceDiagram
 
 ---
 
----
-
 ## 🔧 Google App Setup Guide
 
-To use Google OAuth2 in your Django REST Framework app, you need to set up a Google App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
+To use Google OAuth2 in your app, you need to set up a Google App. Here's a step-by-step guide to obtain the necessary credentials (`client_id`, `client_secret`, `redirect_uri`) and configure your app.
 
 ### Step 1: Create a Google Developer Account
 1. Go to [Google Cloud Console](https://console.cloud.google.com/).
@@ -152,7 +150,7 @@ auth_url = google_provider.get_authorization_url(state='random_state_string')
 ```
 
 ### 2. 🔓 Get Access Token
-This method uses the code from GitHub to get an access token 🔑.
+This method uses the code from Google to get an access token 🔑.
 
 ```python
 def get_access_token(code):

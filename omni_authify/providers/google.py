@@ -77,6 +77,7 @@ class Google(BaseOAuth2Provider):
 
         Returns:
             dict: The user profile data.
+            :param access_token: from exchanging the code for an access token.
             :param fields: scope permissions for fetching user profile data.
         """
         headers = {"Authorization": f"Bearer {access_token}"}

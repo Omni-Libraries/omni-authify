@@ -39,7 +39,13 @@ OMNI_AUTHIFY = {
             'state': os.getenv('GOOGLE_STATE'), # optional
             'scope': os.getenv('GOOGLE_SCOPES'),
         },
-                
+        'linkedin': {
+            'client_id': os.getenv('LINKEDIN_CLIENT_ID'),
+            'client_secret': os.getenv('LINKEDIN_CLIENT_SECRET'),
+            'redirect_uri': os.getenv('LINKEDIN_REDIRECT_URI'),
+            'scope': os.getenv('LINKEDIN_SCOPE'),
+        },
+      
         # Add other providers here if needed
         'telegram': {
             # Coming....
@@ -115,6 +121,19 @@ def google_callback(request):
 
      # Todo: Authenticate/login the user and save the user_info on your own!
     return HttpResponse(user_info)
+
+# ======== LinkedIn Login ========
+def linkedin_login(request):
+    auth = OmniAuthifyDjango(provider_name='linkedin')
+    return auth.login(request)
+
+def linkedin_callback(request):
+    auth = OmniAuthifyDjango(provider_name='linkedin')
+    user_info = auth.callback(request)
+    print(f"User info from Github: {user_info}")
+
+     # Todo: Authenticate/login the user and save the user_info on your own!
+    return HttpResponse(user_info)
 ```
 
 ## 🌐 Update URLs
@@ -134,11 +153,15 @@ urlpatterns = [
 
     # ======== GitHub Login ========
     path('github/login/', views.github_login, name='github_login'),
-    path('github/callback/', views.github_callback, name='github_callback')
+    path('github/callback/', views.github_callback, name='github_callback'),
 
     # ======== Google Login ========
     path('google/login/', views.google_login, name='google_login'),
-    path('google/callback/', views.google_callback, name='google_callback')
+    path('google/callback/', views.google_callback, name='google_callback'),
+  
+    # ======== LinkedIn Login ========
+    path('linkedin/login/', views.linkedin_login, name='linkedin_login'),
+    path('linkedin/callback/', views.linkedin_callback, name='linkedin_callback')
 ]
 ```
 
@@ -170,6 +193,7 @@ Create a template to display user information or login options.
         <a href="{% url 'facebook_login' %}">Login with Facebook</a><br>
         <a href="{% url 'github_login' %}">Login with GitHub</a>
         <a href="{% url 'google_login' %}">Login with Google</a>
+        <a href="{% url 'linkedin_login' %}">Login with LinkedIn</a>
     {% endif %}
 </body>
 </html>
