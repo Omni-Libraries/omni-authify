@@ -18,7 +18,7 @@ class OmniAuthifyFastAPI:
         Retrieve provider settings from environment variables or FastAPI settings.
         :param provider_name: The name of the provider, such as facebook or Twitter.
         """
-        provider_settings = OMNI_AUTHIFY['PROVIDERS'].get(provider_name=provider_name)
+        provider_settings = OMNI_AUTHIFY['PROVIDERS'].get(provider_name)
         if not provider_settings:
             raise NotImplementedError(f"Provider settings for '{provider_name}' not found in OMNI_AUTHIFY settings.")
 
