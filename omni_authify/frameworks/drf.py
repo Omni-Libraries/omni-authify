@@ -10,7 +10,6 @@ except ImportError as e:
 
 from omni_authify.core.oauth import get_provider
 
-
 class OmniAuthifyDRF:
     def __init__(self, provider_name):
         """
@@ -18,7 +17,7 @@ class OmniAuthifyDRF:
         :param provider_name: The name of the provider such as Facebook or Twitter
         """
 
-        provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name=provider_name)
+        provider_settings = settings.OMNI_AUTHIFY['PROVIDERS'].get(provider_name)
         if not provider_settings:
             raise NotImplementedError(f"Provider settings for '{provider_name}' not found in OMNI_AUTHIFY settings.")
 
@@ -34,7 +33,7 @@ class OmniAuthifyDRF:
         :return:
         """
         scope = scope or self.scope
-        return  self.provider.get_authorization_url(state=self.state, scope=scope)
+        return self.provider.get_authorization_url(state=self.state, scope=scope)
 
     def get_user_info(self, request, code):
         """
@@ -45,12 +44,8 @@ class OmniAuthifyDRF:
         """
         error = request.GET.get('error')
         if error:
-            return {'error':True, 'message':f"Error: {error}", 'status':400}
+            return {'error': True, 'message': f"Error: {error}", 'status': 400}
 
         access_token = self.provider.get_access_token(code=code)
         user_info = self.provider.get_user_profile(access_token=access_token, fields=self.fields)
         return user_info
-
-
-
-

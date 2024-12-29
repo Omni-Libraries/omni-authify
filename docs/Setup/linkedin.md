@@ -91,6 +91,10 @@ graph LR
   <img src="../images/linkedin/step-4/display_scopes.png" alt="Display Scopes" width="800" height="500">
 </p>
 
+<p>
+  <img src="../images/linkedin/step-4/display_scopes.png" alt="Display Scopes" width="800" height="500">
+</p>
+
 > 🚨 **Important:** LinkedIn servers will only communicate with trusted URLs. Ensure your callback URL meets the following criteria:
 >
 > - Must be absolute: `https://example.com/auth/linkedin/callback`

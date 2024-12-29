@@ -6,13 +6,19 @@
         <img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1" alt="Documentation"/>
     </a>
     <a href="https://github.com/Omni-Libraries/omni-authify.git">
-        <img src="https://img.shields.io/badge/Open_Source-❤️-FDA599?" alt="Open Source"/>
+        <img src="https://img.shields.io/badge/Open_Source-❤️-FDA599?"/>
     </a>
     <a href="https://discord.gg/BQrvDpcw">
         <img src="https://img.shields.io/badge/Community-Join%20Us-blueviolet" alt="Community"/>
     </a>
+    <a href="https://github.com/Omni-Libraries/omni-authify/issues">
+        <img src="https://img.shields.io/github/issues/Omni-Libraries/omni-authify" alt="Issues"/>
+    </a>
     <a href="https://pypi.org/project/omni-authify/">  
         <img src="https://img.shields.io/pypi/dm/omni-authify" alt="PyPI Downloads"/>
+    </a>
+    <a href="https://pepy.tech/project/omni-authify">
+        <img src="https://static.pepy.tech/personalized-badge/omni-authify?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads" alt="Total Downloads"/>
     </a>
 </p>
 
