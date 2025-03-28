@@ -27,7 +27,7 @@
 
 ---
 
-**Omni-Authify** is a Python package that makes it easy to support OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI.
+**Omni-Authify** is a Python package that makes it easy to support OAuth2 authentication across multiple frameworks like Django, Django-DRF, Flask, and FastAPI founded & developed by Mukhsin Mukhtorov. 
 
 ## 📚 Table of Contents
 - [Contributors](CONTRIBUTING.md)
